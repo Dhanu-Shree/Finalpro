@@ -1,0 +1,81 @@
+/* body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%; 
+  color: #105aa8;
+} */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%; 
+}
+
+/* Sign-up form */
+.form-container {
+  width: 400px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+label{
+  display:block;
+  margin-bottom :8px;
+}
+
+input{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+ button:hover {
+  background-color: #0056b3;
+} 
+#role {
+  font-size: 16px; /* Adjust the font size as needed */
+  padding: 8px; /* Adjust the padding to match other placeholders */
+  border: 1px solid #ccc; /* Add a border for consistency */
+  border-radius: 4px; /* Rounded corners */
+  background-color: #f9f9f9; /* Light gray background */
+  width: 100%;
+}
+.button-container {
+  display: flex;
+  justify-content: space-between; /* Distribute buttons evenly */
+}
+
+.button-container button {
+  flex: 1; /* Equal width for both buttons */
+  margin-right: 10px; /* Add spacing between buttons */
+}
+#role {
+  /* Your existing styles for the dropdown */
+  margin-bottom: 10px; /* Add some space below the dropdown */
+}
+
+#password {
+  /* Your existing styles for the password input */
+  margin-top: 10px; /* Add some space above the password input */
+}
