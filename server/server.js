@@ -76,5 +76,36 @@ app.post('/api/courses', async (req, res) => {
   }
 });
 
+
+
+const assessSchema = new mongoose.Schema({
+  assessmentName: String,
+  links: String,
+  startTime: Date,
+  endTime: Date,
+  Duration:Date
+});
+
+const Assessment = mongoose.model('Assessment', assessSchema);
+
+// Route to add a new course
+app.post('/assessment', async (req, res) => {
+try {
+  const { assessmentName, links, startTime, endTime,Duartion } = req.body;
+  const newAssessment = new Assessment({
+    assessmentName,
+    links,
+    startTime,
+    endTime,
+    Duartion
+  });
+  await newAssessment.save();
+  res.status(201).send('Assessment added successfully')
+} catch (error) {
+  console.error('Error adding course:', error);
+  res.status(500).send('Error adding course');
+}
+});
+
 // Start server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

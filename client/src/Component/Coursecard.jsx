@@ -32,6 +32,35 @@ function CourseCard() {
     }
   };
 
+  //For Assessment card
+  const [assess, setAssessment] = useState({
+    assessmentName: '',
+    links: '',
+    startTime: '',
+    endTime: '',
+    duration:''
+  });
+  
+
+  const handleChanges = (e) => {
+    const { name, value } = e.target;
+    setAssessment(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleSubmits = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:5000/assessment', assess); // Send POST request with Axios
+      console.log(response.data); // Log response from backend
+      console.log(response)
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
   return (
     <div className="app-container">
     <NavBar />
@@ -70,30 +99,30 @@ function CourseCard() {
     <div className='col grid-item'>
     <div className="card">
       <div className="card-body">
-        <h5 className="card-title">Add Assessment</h5>
-        <form onSubmit={handleSubmit}>
+      <h5 className="card-title">Assessment</h5>
+        <form onSubmit={handleSubmits}>
           <div className="mb-3">
-            <label htmlFor="courseName" className="form-label">Assessment Name</label>
-            <input type="text" className="form-control" id="courseName" name="courseName" value={course.courseName} onChange={handleChange} />
+            <label htmlFor="assessmentName" className="form-label">Assessment Name</label>
+            <input type="text" className="form-control" id="assessmentName" name="assessmentName" value={assess.assessmentName} onChange={handleChanges} />
+          </div>
+          
+          <div className="mb-3">
+            <label htmlFor="links" className="form-label">Link</label>
+            <input type="text" className="form-control" id="links" name="links" value={assess.links} onChange={handleChanges} />
           </div>
           <div className="mb-3">
-            <label htmlFor="description" className="form-label">Assessment Link</label>
-            <textarea className="form-control" id="description" name="description" value={course.description} onChange={handleChange}></textarea>
+            <label htmlFor="startTime" className="form-label">Start Time</label>
+            <input type="date" className="form-control" id="startTime" name="startTime" value={assess.startTime} onChange={handleChanges} />
           </div>
           <div className="mb-3">
-            <label htmlFor="link" className="form-label">Course Link</label>
-            <input type="text" className="form-control" id="link" name="link" value={course.link} onChange={handleChange} />
+            <label htmlFor="endTime" className="form-label">End Time</label>
+            <input type="date" className="form-control" id="endTime" name="endTime" value={assess.endTime} onChange={handleChanges} />
           </div>
           <div className="mb-3">
-  <label htmlFor="startTime" className="form-label">Start Time</label>
-  <input type="time" className="form-control" id="startTime" name="startTime" value={course.startTime} onChange={handleChange} />
-</div>
-<div className="mb-3">
-  <label htmlFor="endTime" className="form-label">End Time</label>
-  <input type="time" className="form-control" id="endTime" name="endTime" value={course.endTime} onChange={handleChange} />
-</div>
-
-          <button type="submit" className="btn btn-primary">Add Course</button>
+            <label htmlFor="duration" className="form-label">Duration</label>
+            <input type="date" className="form-control" id="duration" name="duration" value={assess.duration} onChange={handleChanges} />
+          </div>
+          <button type="submit" className="btn btn-primary">Add Assessment</button>
         </form>
       </div>
     </div>

@@ -8,6 +8,7 @@ import AdminPage from './Component/Admin';
 import TraineePage from './Component/Trainee';
 import InternPage from './Component/Intern';
 import CourseCard from './Component/Coursecard';
+import Calendars from './Component/Calendar';
 
 function App() {
   return (
@@ -19,7 +20,8 @@ function App() {
         <Route path="/intern" element={<InternPage />} />
         <Route path="/trainee" element={<TraineePage />} />
         <Route path="/coursecard" element={<CourseCard />} />
-      </Routes>
+        <Route path='/nextpage' element={<Calendars />}
+ />      </Routes>
     </BrowserRouter>
   );
 }

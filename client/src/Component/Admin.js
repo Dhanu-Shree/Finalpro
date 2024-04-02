@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import "./Admin.css";
 import {  HamburgetMenuClose, HamburgetMenuOpen } from "./Icons";
 
+
 function NavBar() {
   const [click, setClick] = useState(false);
 
@@ -32,12 +33,12 @@ function NavBar() {
             <li className="nav-item">
               <NavLink
                 exact
-                to="/about"
+                to="/nextpage"
                 activeClassName="active"
                 className="nav-links"
                 onClick={handleClick}
               >
-               Update Schedules
+               Schedules
               </NavLink>
             </li>
             <li className="nav-item">
