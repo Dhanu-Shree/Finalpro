@@ -1,64 +1,92 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import './Intern.css'; // Import CSS file for styling
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+// import NavBar from 'Internavbar.jsx'; 
+import './Coursecard.css'; 
+import InternNavBar from './Navforintern.jsx';
 
-const Intern = () => {
+
+function Intern() {
+  const [courses, setCourses] = useState([]);
+  const [assessments, setAssessments] = useState([]);
+
+  useEffect(() => {
+    fetchCourses();
+    fetchAssessments();
+  }, []);
+
+  const fetchCourses = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/api/courses');
+      setCourses(response.data);
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+    }
+  };
+
+  const fetchAssessments = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/assessment');
+      setAssessments(response.data);
+    } catch (error) {
+      console.error('Error fetching assessments:', error);
+    }
+  };
+
   return (
-    <div className="intern-dashboard">
-      {/* Navigation bar */}
-      <nav className="navbar">
-        <div className="user-info">
-          {/* Display user's login name */}
-          <span className="login-name">John Doe</span>
-          {/* Profile icon */}
-          <Link to="/profile">
-            <img src="profile-icon.png" alt="Profile" className="profile-icon" />
-          </Link>
-          {/* Display user's role */}
-          <span className="role">Intern</span>
-        </div>
-      </nav>
-      <div className='row'>
-      {/* Main content */}
-      <div className="main-content">
-        {/* First row */}
+    <div className="app-container">
+      <InternNavBar />
+      <div className="container-fluid">
         <div className="row">
+       
           <div className="col-md-6">
-            {/* Upcoming Training Plans */}
-            <div className="section">
-              <h2>Upcoming Training Plans</h2>
-              <p>No upcoming training plans.</p>
+          <div style={{ width: '300px', height: '200px', overflowY: 'auto', border: '1px solid #ccc', borderRadius: '8px' }}>
+      <div style={{ padding: '10px' }}>
+    
+        
+                <h2>Courses</h2>
+                {courses.map((course) => (
+                  <div key={course._id} className="card mb-3">
+                    <div className="card-body">
+                      <h5 className="card-title">{course.Training}</h5>
+                      <p className="card-text">Trainer: {course.Trainer}</p>
+                      <p className="card-text">Study Material: {course.studymaterial}</p>
+                      <p className="card-text">Start Date: {new Date(course.startDate).toLocaleDateString()}</p>
+                      <p className="card-text">End Date: {new Date(course.endDate).toLocaleDateString()}</p>
+                    </div>
+                  </div>
+                ))}
+              
+            
+          </div>
+          </div>
+          
+          <div className="col-md-6">
+          <div style={{ width: '300px', height: '200px', overflowY: 'auto', border: '1px solid #ccc', borderRadius: '8px' }}>
+      <div style={{ padding: '10px' }}>
+            <div className="card">
+        
+                <h2>Assessments</h2>
+                {assessments.map((assessment) => (
+                  <div key={assessment._id} className="card mb-3">
+                    <div className="card-body">
+                      <h5 className="card-title">{assessment.assessmentName}</h5>
+                      <p className="card-text">Links: {assessment.links}</p>
+                      <p className="card-text">Start Time: {new Date(assessment.startTime).toLocaleString()}</p>
+                      <p className="card-text">End Time: {new Date(assessment.endTime).toLocaleString()}</p>
+                      <p className="card-text">Date of Assessment: {new Date(assessment.dates).toLocaleDateString()}</p>
+                    </div>
+                  </div>
+                ))}
+              
             </div>
           </div>
-          <div className="col-md-6">
-            {/* Progress */}
-            <div className="section">
-              <h2>Training Progress</h2>
-              <p>No training progress available.</p>
-            </div>
           </div>
-        </div></div>
-
-        {/* Second row */}
-        <div className="row">
-          <div className="col-md-6">
-            {/* Assessment Results */}
-            <div className="section">
-              <h2>Assessment Results</h2>
-              <p>No assessment results available.</p>
-            </div>
-          </div>
-          <div className="col-md-6">
-            {/* Training Materials */}
-            <div className="section">
-              <h2>Training Materials</h2>
-              <p>No training materials available.</p>
-            </div>
           </div>
         </div>
       </div>
     </div>
+    </div>
   );
-};
+}
 
 export default Intern;

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './Calendar.css'; // Import your CSS file for styling
-import Calendar from 'react-calendar'; // Import the calendar component
+import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
 function Calendars() {
@@ -14,8 +13,7 @@ function Calendars() {
 
   const fetchAssessmentDates = async () => {
     try {
-      // Replace 'your-api-endpoint' with your actual API endpoint
-      const response = await fetch('/assessment');
+      const response = await fetch('/assessment'); // Adjust the API endpoint as needed
       const data = await response.json();
       setAssessmentDates(data);
     } catch (error) {
@@ -24,28 +22,33 @@ function Calendars() {
   };
 
   const highlightDates = ({ date }) => {
-    // Check if the current date is in the list of assessment dates
-    return assessmentDates.some(assessmentDate => {
+    const formattedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    return assessmentDates.some((assessmentDate) => {
       const d = new Date(assessmentDate);
-      return date.getDate() === d.getDate() &&
-             date.getMonth() === d.getMonth() &&
-             date.getFullYear() === d.getFullYear();
+      return formattedDate.getTime() === d.getTime();
     });
   };
 
   return (
-    <div className="App">
-      <div className="card">
-        <h2>Calendar</h2>
-        <div className="calendar-container">
-          <Calendar
-            onChange={setSelectedDate}
-            value={selectedDate}
-            tileClassName={({ date, view }) =>
-              view === 'month' && highlightDates({ date }) ? 'highlight' : null
-            }
-          />
+    <div className="container-fluid">
+      <div className="row">
+        <div className="col-6 grid-item">
+          <div className="card">
+            <div className="card-body">
+              <h2>Calendar</h2>
+              <div className="calendar-container">
+                <Calendar
+                  onChange={setSelectedDate}
+                  value={selectedDate}
+                  tileClassName={({ date, view }) =>
+                    view === 'month' && highlightDates({ date }) ? 'highlight' : null
+                  }
+                />
+              </div>
+            </div>
+          </div>
         </div>
+        {/* Other components */}
       </div>
     </div>
   );

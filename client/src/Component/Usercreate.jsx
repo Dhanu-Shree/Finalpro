@@ -7,7 +7,10 @@ const CreateUser = () => {
   const [userid, setUserid] = useState("");
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
+  const[dob,setDob]=useState("")
   const [password, setPassword] = useState("");
+  const[role,setRole]=useState("")
+  const[state,setState]=useState("")
   const navigate = useNavigate(); // Initialize the useNavigate hook
 
   const handleSubmit = async (e) => {
@@ -17,8 +20,11 @@ const CreateUser = () => {
       const res = await axios.post("http://localhost:5000/usercreate", {
         userid,
         username,
+        role,
         email,
         password,
+        dob,
+        state
       });
 
       // Assuming the server sends an email with a link to reset password
@@ -55,6 +61,7 @@ const CreateUser = () => {
           placeholder="Name"
           onChange={(e) => setUserName(e.target.value)}
         />
+        
         <label htmlFor="email">Email:</label>
         <input
           type="text"
@@ -62,6 +69,28 @@ const CreateUser = () => {
           placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
         />
+        <label htmlFor="role">Role:</label>
+<select id="role" value={role} onChange={(e) => setRole(e.target.value)}>
+  <option value="admin">Admin</option>
+  <option value="trainee">Trainee</option>
+  <option value="intern">Intern</option>
+</select>
+<label htmlFor="dob">Date of Birth:</label>
+        <input
+          type="date"
+          value={dob} 
+          placeholder=""
+          onChange={(e) => setDob(e.target.value)}
+        />
+
+        <label htmlFor="state">State:</label>
+        <input
+          type="text"
+          value={state}
+          placeholder="state"
+          onChange={(e) => setState(e.target.value)}
+        />
+
         <label htmlFor="password">Password:</label>
         <input
           type="password"

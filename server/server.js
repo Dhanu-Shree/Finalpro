@@ -26,7 +26,10 @@ const UserSchema=new mongoose.Schema({
     userid:{type:String,required:true,unique:true},
     username:{type:String,required:true,unique:true},
     email:{type:String,required:true,unique:true},
-    password:{type:String,required:true}
+    password:{type:String,required:true},
+    state:{type:String,required:true},
+    role:{type:String,required:true},
+    dob:{type:Date,required:true}
 })
 
 const User=new mongoose.model("User",UserSchema)
@@ -38,8 +41,9 @@ app.use(express.json());
 // Route to handle user creation
 app.post('/usercreate', async (req, res) => {
     try {
-  const { userid,username,email,password} = req.body;
-      const user = new User({userid,username,email,password });
+  const { userid,username,email,role,dob,state,password} = req.body;
+      const user = new User({userid,username,role,dob,state,email,password });
+      console.log(user)
       await user.save();
       res.status(201).send(user);
     } catch (err) {
@@ -48,9 +52,9 @@ app.post('/usercreate', async (req, res) => {
   });
 
   const courseSchema = new mongoose.Schema({
-    courseName: String,
-    description: String,
-    link: String,
+    Training: String,
+    Trainer: String,
+    studymaterial: String,
     startDate: Date,
     endDate: Date
   });
@@ -60,11 +64,11 @@ app.post('/usercreate', async (req, res) => {
   // Route to add a new course
 app.post('/api/courses', async (req, res) => {
   try {
-    const { courseName, description, link, startDate, endDate } = req.body;
+    const { Training, Trainer, studymaterial, startDate, endDate } = req.body;
     const newCourse = new Course({
-      courseName,
-      description,
-      link,
+      Training,
+      Trainer,
+      studymaterial,
       startDate,
       endDate
     });
@@ -75,7 +79,17 @@ app.post('/api/courses', async (req, res) => {
     res.status(500).send('Error adding course');
   }
 });
-
+app.get('/api/courses', async (req, res) => {
+  try {
+    console.log("came")
+    const courses = await Course.find();
+    res.json(courses);
+    console.log(courses);
+  } catch (error) {
+    console.error('Error fetching courses:', error);
+    res.status(500).send('Error fetching courses');
+  }
+});
 
 
 const assessSchema = new mongoose.Schema({
@@ -83,29 +97,43 @@ const assessSchema = new mongoose.Schema({
   links: String,
   startTime: Date,
   endTime: Date,
-  Duration:Date
+  dates: [Date], // Store assessment dates as an array of Date objects
 });
 
 const Assessment = mongoose.model('Assessment', assessSchema);
 
-// Route to add a new course
+// Route to add a new assessment
 app.post('/assessment', async (req, res) => {
-try {
-  const { assessmentName, links, startTime, endTime,Duartion } = req.body;
-  const newAssessment = new Assessment({
-    assessmentName,
-    links,
-    startTime,
-    endTime,
-    Duartion
-  });
-  await newAssessment.save();
-  res.status(201).send('Assessment added successfully')
-} catch (error) {
-  console.error('Error adding course:', error);
-  res.status(500).send('Error adding course');
-}
+  try {
+    const { assessmentName, links, startTime, endTime, dates } = req.body;
+    const newAssessment = new Assessment({
+      assessmentName,
+      links,
+      startTime,
+      endTime,
+      dates,
+    });
+
+    await newAssessment.save();
+    res.status(201).send('Assessment added successfully');
+  } catch (error) {
+    console.error('Error adding assessment:', error);
+    res.status(500).send('Error adding assessment');
+  }
+});
+
+// Route to fetch assessment dates
+app.get('/assessment', async (req, res) => {
+  try {
+    const assessments = await Assessment.find();
+    res.json(assessments);
+    console.log(assessments)
+  } catch (error) {
+    console.error('Error fetching assessment:', error);
+    res.status(500).send('Error fetching assessment');
+  }
 });
 
 // Start server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+

@@ -23,8 +23,8 @@ const handleSubmit = async(e)=>{
         console.log(response.data);
   
         // Navigate to the respective role page based on the selected role
-        if (role === 'admin' && userid==='admin@100') {
-          navigate('/usercreate');
+        if (role === 'admin') {
+          navigate('/coursecard');
         } else if (role === 'trainee') {
           navigate('/trainee');
         } else if (role === 'intern') {

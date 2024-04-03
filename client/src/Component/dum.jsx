@@ -67,33 +67,9 @@ function CourseCard() {
     <div className="container-fluid">
     <div className='row'>
       <div className='col-md-6 grid-item'>
+        
     <div className="card">
-      <div className="card-body">
-        <h5 className="card-title">Add Training</h5>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="Training" className="form-label">Training Name</label>
-            <input type="text" className="form-control" id="Training" name="Training" value={course.Training} onChange={handleChange} />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="Trainer" className="form-label">Trainer</label>
-            <textarea className="form-control" id="Trainer" name="Trainer" value={course.Trainer} onChange={handleChange}></textarea>
-          </div>
-          <div className="mb-3">
-            <label htmlFor="studymaterial" className="form-label">Materials</label>
-            <input type="text" className="form-control" id="studymaterial" name="studymaterial" value={course.studymaterial} onChange={handleChange} />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="startDate" className="form-label">Start Date</label>
-            <input type="date" className="form-control" id="startDate" name="startDate" value={course.startDate} onChange={handleChange} />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="endDate" className="form-label">End Date</label>
-            <input type="date" className="form-control" id="endDate" name="endDate" value={course.endDate} onChange={handleChange} />
-          </div>
-          <button type="submit" className="btn btn-primary">Add Training</button>
-        </form>
-      </div>
+     
     </div>
     </div>
     <div className='col-md-6 grid-item'>
