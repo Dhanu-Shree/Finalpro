@@ -1,0 +1,52 @@
+/* CourseMaterial.css */
+
+/* Container */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  /* Heading */
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Modules List */
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 10px;
+  }
+  
+  /* Button */
+  button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Progress Bar */
+  progress {
+    width: 100%;
+    height: 20px;
+    margin-top: 10px;
+  }
+  
+  /* Module Completed Indicator */
+  span.completed {
+    color: #4CAF50;
+    font-weight: bold;
+  }
+  

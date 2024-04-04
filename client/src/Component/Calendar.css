@@ -19,8 +19,8 @@
   
   /* Styles for the highlighted dates */
   .highlight {
-    background-color: #56fd35; /* Yellow color for highlighted dates */
-    color: #5ba549; /* Black text color */
+    background-color: #c21c5c; /* Yellow color for highlighted dates */
+    color: #d5dfc3; /* Black text color */
   }
   .card-body{
     background-color: rgb(243, 243, 243);

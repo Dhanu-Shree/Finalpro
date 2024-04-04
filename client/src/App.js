@@ -10,6 +10,7 @@ import InternPage from './Component/Intern';
 import CourseCard from './Component/Coursecard';
 import Calendars from './Component/Calendar';
 import Popup from './Component/dum';
+import Module from './Component/module';
 
 function App() {
   return (
@@ -22,8 +23,9 @@ function App() {
         <Route path="/trainee" element={<TraineePage />} />
         <Route path="/coursecard" element={<CourseCard />} />
         <Route path='/nextpage' element={<Calendars />}/>
-        <Route path='/popup' element={<Popup />}
- />      </Routes>
+        <Route path='/popup' element={<Popup />}/>
+        <Route path='/module' element={<Module/>}/>
+    </Routes>
     </BrowserRouter>
   );
 }
