@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const cors = require('cors'); // Import the cors package
 require('dotenv').config();
 const bcrypt = require('bcrypt');
+const router = express.Router();
+const nodemailer = require("nodemailer");
  
 const app = express();
  
@@ -23,9 +25,9 @@ mongoose.connect(mongoURL, { useNewUrlParser: true, useUnifiedTopology: true })
 // User model
 
 const UserSchema=new mongoose.Schema({
-    userid:{type:String,required:true,unique:true},
-    username:{type:String,required:true,unique:true},
-    email:{type:String,required:true,unique:true},
+    userid:{type:String,required:true},
+    username:{type:String,required:true},
+    email:{type:String,required:true},
     password:{type:String,required:true},
     state:{type:String,required:true},
     role:{type:String,required:true},
@@ -39,17 +41,47 @@ const User=new mongoose.model("User",UserSchema)
 app.use(express.json());
  
 // Route to handle user creation
+
+// Route to create a new user
 app.post('/usercreate', async (req, res) => {
-    try {
-  const { userid,username,email,role,dob,state,password} = req.body;
-      const user = new User({userid,username,role,dob,state,email,password });
-      console.log(user)
-      await user.save();
-      res.status(201).send(user);
-    } catch (err) {
-      res.status(400).send(err);
-    }
-  });
+  try {
+    const { userid, username, role ,email,password,  dob, state } = req.body;
+    const user = new User({ userid, username, email , password, state, role, dob });
+    await user.save();
+
+    // Send welcome email
+    const transporter = nodemailer.createTransport({
+      host: "dhanushree@jmangroup.com", // Update with your SMTP server host
+      port: 587,
+      secure: false,
+      auth: {
+        user: "dhanushree@jmangroup.com", // Update with your email address
+        pass: "Jman@600113", // Update with your email password
+      },
+      service : 'outlook'
+    });
+    
+    const mailOptions = {
+      from: "dhanushree@jmangroup.com", // Update with your email address
+      to: email,
+      subject: "Welcome to Our Platform",
+      html: `Hello ${username}, your userid is ${userid} and password is ${password}.`,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log("Error sending email:", error);
+        res.status(500).send("Internal server error");
+      } else {
+        console.log("Email sent:", info.response);
+        res.status(200).send("User created and email sent successfully");
+      }
+    });
+  } catch (err) {
+    console.error('Error creating user:', err);
+    res.status(400).send(err);
+  }
+});
 
   const courseSchema = new mongoose.Schema({
     Training: String,

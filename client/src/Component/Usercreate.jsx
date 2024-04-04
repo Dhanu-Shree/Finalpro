@@ -1,7 +1,6 @@
 import { useState } from "react";
-import "../App.css";
-import axios from "axios";
-import { useNavigate } from "react-router-dom"; // Import the useNavigate hook
+import "./Usercreate.css";
+import axios from "axios";; // Import the useNavigate hook
 
 const CreateUser = () => {
   const [userid, setUserid] = useState("");
@@ -11,7 +10,7 @@ const CreateUser = () => {
   const [password, setPassword] = useState("");
   const[role,setRole]=useState("")
   const[state,setState]=useState("")
-  const navigate = useNavigate(); // Initialize the useNavigate hook
+   // Initialize the useNavigate hook
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,23 +25,18 @@ const CreateUser = () => {
         dob,
         state
       });
+      console.log('Role : ', role);
 
-      // Assuming the server sends an email with a link to reset password
-      // You can customize the email content and include the reset link
-      const resetLink = `http://localhost:5000/reset-password?userid=${userid}`;
-      console.log(`Reset password link: ${resetLink}`);
+     console.log(res)
 
-      // Handle the email sending logic here (e.g., using a third-party email service)
-
-      console.log(res.data);
-
-      // Navigate to the login page after successful user creation
-      navigate("/"); // Change the route to the login page
+      // Navigate to the login page after successful user cre // Change the route to the login page
     } catch (error) {
       console.log(error);
     }
   };
 
+  console.log('Role : ', role);
+  
   return (
     <div className="createuser-container">
       <form className="form-container" onSubmit={handleSubmit}>

@@ -1,0 +1,29 @@
+/* Calendars.css */
+
+/* Styles for the calendar container */
+.calendar-container {
+    width: 100%;
+    max-width: 400px; /* Adjust as needed */
+    margin: 0 auto;
+    background-color: rgb(167, 214, 198);
+  }
+  
+  /* Styles for the calendar */
+  .react-calendar {
+    width: 100%;
+    max-width: 400px; /* Adjust as needed */
+    border: 1px solid #8f3131;
+    border-radius: 8px;
+    background-color: rgb(92, 215, 231);
+  }
+  
+  /* Styles for the highlighted dates */
+  .highlight {
+    background-color: #56fd35; /* Yellow color for highlighted dates */
+    color: #5ba549; /* Black text color */
+  }
+  .card-body{
+    background-color: rgb(243, 243, 243);
+    padding: 40px;
+  }
+  

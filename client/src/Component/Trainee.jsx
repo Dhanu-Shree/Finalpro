@@ -1,8 +1,11 @@
 import React from 'react'
+import NavBar from './Navfortrainee.jsx';
 
 const Trainee = () => {
   return (
-    <div>Trainee</div>
+     <div className="app-container">
+    <NavBar />
+    </div>
   )
 }
 

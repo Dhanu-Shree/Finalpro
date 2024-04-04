@@ -4,7 +4,7 @@ import "./Admin.css";
 import {  HamburgetMenuClose, HamburgetMenuOpen } from "./Icons";
 
 
-function NavBar() {
+function InternNavBar() {
   const [click, setClick] = useState(false);
 
   const handleClick = () => setClick(!click);
@@ -13,7 +13,7 @@ function NavBar() {
       <nav className="navbar">
         <div className="nav-container">
           <NavLink exact to="/admin" className="nav-logo">
-            <span>Welcome Admin</span>
+            <span>Welcome Trainee</span>
             {/* <i className="fas fa-code"></i> */}
            
           </NavLink>
@@ -27,7 +27,7 @@ function NavBar() {
                 className="nav-links"
                 onClick={handleClick}
               >
-                Create User
+          Profile
               </NavLink>
             </li>
             <li className="nav-item">
@@ -38,18 +38,18 @@ function NavBar() {
                 className="nav-links"
                 onClick={handleClick}
               >
-               Schedules
+               Ur feedbacks
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
                 exact
-                to="/nextpage"
+                to="/blog"
                 activeClassName="active"
                 className="nav-links"
                 onClick={handleClick}
               >
-                Assign_Training
+                Calendar
               </NavLink>
             </li>
             <li className="nav-item">
@@ -60,7 +60,7 @@ function NavBar() {
                 className="nav-links"
                 onClick={handleClick}
               >
-                Contact Us
+                Upcoming Training
               </NavLink>
             </li>
           </ul>
@@ -84,4 +84,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default InternNavBar;

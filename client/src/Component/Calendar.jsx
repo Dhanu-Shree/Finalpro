@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import './Calendar.css';
 
 function Calendars() {
   const [assessmentDates, setAssessmentDates] = useState([]);
@@ -13,8 +14,9 @@ function Calendars() {
 
   const fetchAssessmentDates = async () => {
     try {
-      const response = await fetch('/assessment'); // Adjust the API endpoint as needed
+      const response = await fetch('http://localhost:5000/assessment'); // Adjust the API endpoint as needed
       const data = await response.json();
+      console.log("date is",data)
       setAssessmentDates(data);
     } catch (error) {
       console.error('Error fetching assessment dates:', error);
@@ -36,7 +38,7 @@ function Calendars() {
           <div className="card">
             <div className="card-body">
               <h2>Calendar</h2>
-              <div className="calendar-container">
+              <div className="react-calendar">
                 <Calendar
                   onChange={setSelectedDate}
                   value={selectedDate}

@@ -1,106 +1,103 @@
-/* Coursecard.css */
 
-.app-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.container-fluid {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: flex-start;
-  margin-top: 20px;
-}
-
-.card {
-  width: 45%;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.card-body {
-  padding: 20px;
-  background-color: aqua;
-}
-.card-bodys {
-  padding: 20px;
-
-}
-.card-title {
-  font-size: 1.5rem;
-  margin-bottom: 20px;
+/* Navigation bar */
+.navbar {
+  background-color: #1b78c5;
+  padding: 10px;
   text-align: center;
-}
-
-.card-text {
-  margin-bottom: 10px;
-}
-
-.col-md-6 {
-  flex: 1;
-  margin-right: 20px;
-}
-
-@media (max-width: 768px) {
-  .container-fluid {
-    flex-direction: column;
+  /* margin-bottom: 100px; */
   }
-
+  .user-info {
+  display: flex;
+  align-items: center;
+  }
+  .login-name {
+  margin-right: 10px;
+  }
+  .profile-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  }
+  .role {
+  font-weight: bold;
+  }
+  /* Main content */
+  .main-content {
+  padding: 20px;
+  }
+  /* Sections */
+  .section {
+  border: 1px solid #ad2828;
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  }
+  /* Layout for columns */
+  @media (min-width: 768px) {
+  .row {
+  display: flex;
+  flex-wrap: wrap;
+  }
   .col-md-6 {
-    margin-right: 0;
+  width: 50%;
+  padding: 10px;
   }
+  }
+  .app-container {
+  width: 100%;
+  height: 100vh;
+  }
+  .outer-cerds {
+  position: absolute;
+  top: 100px; /* Height of the nav bar + desired space */
+  left: 0;
+  width: calc(100% - 20px); /* Adjust as needed */
+  height: calc(100% - 76px - 20px); /* Adjust as needed */
+  padding: 20px; /* Adjust as needed */
+  overflow: hidden;
 
-  .card {
-    width: 100%;
   }
-}
-.app-container {
+  .inner-cerds {
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.container-fluid {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-}
-
-.card {
-  width: 45%;
-  border: 1px solid #ccc;
+  height: 100%;
+  gap:20%;
+  }
+  .cerd {
+  width: 30%; /* Adjust as needed */
+  height: 100%;
+  overflow: auto;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.scrollable-details {
-  height: 300px; /* Set the height for scrollable details */
-  overflow-y: auto; /* Enable vertical scrollbar if content exceeds height */
-}
-
-.card-body {
-  padding: 20px;
-}
-
-.card-title {
-  font-size: 1.5rem;
+  border: 1px solid #ccc; /* Add border */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  background-color: #7cbaec;/* Add shadow */
+  }
+  .cerd-body {
+  height: 100%;
+  }
+  .scrollable-content {
+  padding: 10px;
+  }
+  .course-item,
+  .assessment-item {
   margin-bottom: 20px;
-  text-align: center;
-}
-
-@media (max-width: 768px) {
-  .container-fluid {
-    flex-direction: column;
   }
-
-  .card {
-    width: 100%;
-    margin-bottom: 20px;
+  /* Add some spacing between items */
+  .course-item:not(:last-child),
+  .assessment-item:not(:last-child) {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
   }
-}
+  .cerd-title {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #0958a1; 
+    text-align: center; /* Adjust color */
+  }
+  .cerd-titles {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #edf0f3; 
+    text-align: center; /* Adjust color */
+  }
+  
