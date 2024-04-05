@@ -34,7 +34,7 @@ const UserSchema=new mongoose.Schema({
     dob:{type:Date,required:true}
 })
 
-const User=new mongoose.model("User",UserSchema)
+const User=new mongoose.model("userdetail",UserSchema)
 
  
 // Middleware
@@ -51,18 +51,18 @@ app.post('/usercreate', async (req, res) => {
 
     // Send welcome email
     const transporter = nodemailer.createTransport({
-      host: "dhanushree@jmangroup.com", // Update with your SMTP server host
+      host: "dhanushree.g2020cce@sece.ac.in", // Update with your SMTP server host
       port: 587,
       secure: false,
       auth: {
-        user: "dhanushree@jmangroup.com", // Update with your email address
-        pass: "Jman@600113", // Update with your email password
+        user: "dhanushree.g2020cce@sece.ac.in", // Update with your email address
+        pass: "sececce2020", // Update with your email password
       },
-      service : 'outlook'
+      service : 'Outlook'
     });
     
     const mailOptions = {
-      from: "dhanushree@jmangroup.com", // Update with your email address
+      from: "dhanushree.g2020cce@sece.ac.in", // Update with your email address
       to: email,
       subject: "Welcome to Our Platform",
       html: `Hello ${username}, your userid is ${userid} and password is ${password}.`,

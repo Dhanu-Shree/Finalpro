@@ -11,6 +11,8 @@ import CourseCard from './Component/Coursecard';
 import Calendars from './Component/Calendar';
 import Popup from './Component/dum';
 import Module from './Component/module';
+import Display from './Component/display';
+import Newuser from './Component/newuser';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
         <Route path='/nextpage' element={<Calendars />}/>
         <Route path='/popup' element={<Popup />}/>
         <Route path='/module' element={<Module/>}/>
+        <Route path='/display' element={<Display/>}/>
+        <Route path='newuser' element={<Newuser />}/>
     </Routes>
     </BrowserRouter>
   );

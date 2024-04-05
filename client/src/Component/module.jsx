@@ -1,67 +1,86 @@
 import React, { useState } from 'react';
-import './module.css'; // Import CSS file for styling
+import axios from 'axios';
+import './module.css';
 
-function TrainingForm() {
+function Module() {
   const [trainerName, setTrainerName] = useState('');
   const [trainerEmail, setTrainerEmail] = useState('');
   const [trainingName, setTrainingName] = useState('');
-  const [modules, setModules] = useState([{ link: '' }]);
+  const [trainingDate, setTrainingDate] = useState('');
+  const [modules, setModules] = useState([]);
+
+  const handleModuleChange = (index, event) => {
+    const newModules = [...modules];
+    newModules[index] = event.target.value;
+    setModules(newModules);
+  };
 
   const handleAddModule = () => {
-    setModules([...modules, { link: '' }]);
+    setModules([...modules, '']);                    
   };
 
-  const handleModuleChange = (index, value) => {
-    const updatedModules = [...modules];
-    updatedModules[index].link = value;
-    setModules(updatedModules);
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:5000/trainings', {
+        trainerName,
+        trainerEmail,
+        trainingName,
+        trainingDate,
+        modules
+      });
+      console.log('Form data sent successfully:', response.data);
+      // Optionally, reset the form fields after successful submission
+      setTrainerName('');
+      setTrainerEmail('');
+      setTrainingName('');
+      setTrainingDate('');
+      setModules([]);
+    } catch (error) {
+      console.error('Error sending form data:', error);
+    }
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Send data to backend or perform further processing
-    console.log({
-      trainerName,
-      trainerEmail,
-      trainingName,
-      modules
-    });
-    // Clear form fields after submission if needed
-  };
-
   return (
-    <div className="card">
-      <div className="card-body">
-        <h2>Training Form</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="trainerName" className="form-label">Trainer Name</label>
-            <input type="text" className="form-control" id="trainerName" value={trainerName} onChange={(e) => setTrainerName(e.target.value)} />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="trainerEmail" className="form-label">Trainer Email</label>
-            <input type="email" className="form-control" id="trainerEmail" value={trainerEmail} onChange={(e) => setTrainerEmail(e.target.value)} />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="trainingName" className="form-label">Training Name</label>
-            <input type="text" className="form-control" id="trainingName" value={trainingName} onChange={(e) => setTrainingName(e.target.value)} />
-          </div>
-          <div className="mb-3">
-            <label className="form-label">Modules</label>
-            {modules.map((module, index) => (
-              <div key={index} className="d-flex">
-                <input type="text" className="form-control me-2" placeholder="Module Link" value={module.link} onChange={(e) => handleModuleChange(index, e.target.value)} />
-                {index === modules.length - 1 && (
-                  <button type="button" className="btn btn-primary" onClick={handleAddModule}>Add Module</button>
-                )}
-              </div>
-            ))}
-          </div>
-          <button type="submit" className="btn btn-primary">Submit</button>
-        </form>
-      </div>
-    </div>
-  );
+  <div className="Module">
+  <h1>Training Assignment Form</h1>
+  <form className='dum' onSubmit={handleSubmit}>
+    <label>
+      Trainer Name:
+      <input type="text" value={trainerName} onChange={(e) => setTrainerName(e.target.value)} />
+    </label>
+    <br />
+    <label>
+      Trainer Email:
+      <input type="email" value={trainerEmail} onChange={(e) => setTrainerEmail(e.target.value)} />
+    </label>
+    <br />
+    <label>
+      Training Name:
+      <input type="text" value={trainingName} onChange={(e) => setTrainingName(e.target.value)} />
+    </label>
+    <br />
+    <label>
+      Training Date:
+      <input type="date" value={trainingDate} onChange={(e) => setTrainingDate(e.target.value)} />
+    </label>
+    <br />
+    <label>
+      Modules:
+      {modules.map((module, index) => (
+        <input
+          key={index}
+          type="text"
+          value={module}
+          onChange={(e) => handleModuleChange(index, e)}
+        />
+      ))}
+      <button type="button" onClick={handleAddModule}>Add Module</button>
+    </label>
+    <br />
+    <button type="submit">Assign Training</button>
+  </form>
+</div>
+);
 }
 
-export default TrainingForm;
+export default Module;

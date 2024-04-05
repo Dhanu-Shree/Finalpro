@@ -31,7 +31,7 @@ const UserSchema=new mongoose.Schema({
 })
 
 
-const User=mongoose.model("User2",UserSchema);
+const User=mongoose.model("logindetails",UserSchema);
 
  
 // Middleware
@@ -49,6 +49,16 @@ app.post('/login', async (req, res) => {
       res.status(201).send(user);
     } catch (err) {
       res.status(400).send(err);
+    }
+  });
+  app.get('/login', async (req, res) => {
+    try {
+      const login = await User.find();
+      res.json(login);
+      console.log('getted ',login)
+    } catch (error) {
+      console.error('Error fetching login:', error);
+      res.status(500).send('Error fetching login');
     }
   });
 // Start server

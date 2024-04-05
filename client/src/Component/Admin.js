@@ -1,11 +1,32 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { NavLink } from "react-router-dom";
 import "./Admin.css";
 import {  HamburgetMenuClose, HamburgetMenuOpen } from "./Icons";
+import axios from 'axios';
 
 
 function NavBar() {
   const [click, setClick] = useState(false);
+  const [username, setUsername] = useState("");
+
+  useEffect(() => {
+    fetchName();
+  }, []); // Ensure fetchName is called only once on component mount
+
+  // Logout
+  // localStorage.clear()
+
+  const fetchName = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/login');
+      const usernameFromResponse = response.data.username; // Use a different variable name
+      setUsername(localStorage.getItem("Username"));
+      console.log(response.data);
+      console.log(usernameFromResponse); // Log the extracted username
+    } catch (error) {
+      console.error('Error fetching username:', error);
+    }
+  };
 
   const handleClick = () => setClick(!click);
   return (
@@ -13,7 +34,7 @@ function NavBar() {
       <nav className="navbar">
         <div className="nav-container">
           <NavLink exact to="/admin" className="nav-logo">
-            <span>Welcome Admin</span>
+            <span>Welcome {username}</span>
             {/* <i className="fas fa-code"></i> */}
            
           </NavLink>

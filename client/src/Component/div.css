@@ -1,0 +1,67 @@
+/* DividerWithCheckboxes.css */
+
+.divider-with-checkboxes {
+    margin-top: 20px;
+  }
+  
+  .divider-with-checkboxes h3 {
+    margin-bottom: 10px;
+  }
+  
+  .divider-with-checkboxes .MuiList-root {
+    width: 100%;
+  }
+  
+  .divider-with-checkboxes .MuiListItem-root {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .divider-with-checkboxes .MuiDivider-root {
+    margin: 10px 0;
+    position: relative;
+    overflow: hidden;
+    display: block;
+    height: 40px;
+    z-index: 0;
+    background-color: rgb(167, 202, 237);
+  }
+  
+  .divider-with-checkboxes .MuiLinearProgress-root {
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+    display: block;
+    height: 40px;
+    z-index: 0;
+    background-color: rgb(167, 202, 237);
+  }
+  
+  /* Increase the height of the progress bar */
+  .divider-with-checkboxes .MuiLinearProgress-root .MuiLinearProgress-bar {
+    height: 40px; /* Adjust the height as needed */
+  }
+  
+  .divider-with-checkboxes .progress-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .divider-with-checkboxes .progress-percentage {
+    margin-top: 10px;
+    margin-left: 10px;
+    font-weight: bold;
+    color: red;
+  }
+  .MuiLinearProgress-root {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    height: 20px;
+    z-index: 0;
+    background-color: rgb(208 209 214);
+    width: 60%;
+}
+.divider-with-checkboxes .MuiLinearProgress-root .MuiLinearProgress-bar {
+    height: 40px !important; /* Adjust the height as needed */
+  }

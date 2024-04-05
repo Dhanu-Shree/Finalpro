@@ -1,0 +1,16 @@
+.display {
+  padding: 20px;
+}
+
+.training-card {
+  height: 400px; /* Set a fixed height for the card */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.training-list {
+  padding: 10px;
+}
+
+.training-CRUD {
+  margin-bottom: 20px;
+}

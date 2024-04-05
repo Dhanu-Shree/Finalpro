@@ -21,15 +21,20 @@ const handleSubmit = async(e)=>{
           password,
         });
         console.log(response.data);
-  
+        
+        localStorage.setItem("Username",username)
+
         // Navigate to the respective role page based on the selected role
-        if (role === 'admin') {
-          navigate('/coursecard');
+        if (role === '') {
+          navigate('/');
         } else if (role === 'trainee') {
           navigate('/trainee');
         } else if (role === 'intern') {
           navigate('/intern');
+        }else if(role==='admin'){
+          navigate('/coursecard')
         }
+
         }
        catch (error) {
         console.error('Error during login:', error);
@@ -66,5 +71,6 @@ onChange={(e)=>setPassword(e.target.value)}/>
           <button type="submit">Login</button>
           <button type="submit">Signup</button>
         </div> </form> </div> ) }; 
+    
 
 export default Login;

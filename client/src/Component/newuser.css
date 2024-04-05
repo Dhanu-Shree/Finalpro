@@ -1,0 +1,38 @@
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .cardsss {
+    margin: 10px;
+  }
+  
+  .modal-form {
+    display: flex;
+    flex-direction: column;
+    max-height: 80vh; /* Limiting the height of the form */
+    overflow-y: auto; /* Adding vertical scrollbar if content exceeds max-height */
+  }
+  
+  .modal-field {
+    margin-bottom: 10px;
+  }
+  
+  .modal-button {
+    margin-top: 20px;
+  }
+  
+  /* Styling for the modal backdrop */
+  .MuiModal-root {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Styling for the modal content */
+  .MuiBox-root {
+    overflow: auto; /* Adding scrollbar for the modal content if it exceeds the viewport */
+  }
+  
