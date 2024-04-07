@@ -91,7 +91,7 @@ app.post('/usercreate', async (req, res) => {
     endDate: Date
   });
   
-  const Course = mongoose.model('Course', courseSchema);
+  const Course = mongoose.model('Courses', courseSchema);
 
   // Route to add a new course
 app.post('/api/courses', async (req, res) => {
@@ -166,6 +166,216 @@ app.get('/assessment', async (req, res) => {
   }
 });
 
-// Start server
+
+const InternSchema = new mongoose.Schema({
+  id: String,
+  name: String,
+  email: String,
+  password: String,
+  dob: Date,
+  state: String,
+  country: String
+});
+
+const EmployeeSchema = new mongoose.Schema({
+  id: String,
+  name: String,
+  email: String,
+  password: String,
+  experience: String,
+  department: String,
+  dob: Date,
+  state: String,
+  country: String
+});
+
+const TraineeSchema = new mongoose.Schema({
+  id: String,
+  name: String,
+  email: String,
+  password: String,
+  experience: String,
+  department: String,
+  dob: Date,
+  state: String,
+  country: String
+});
+
+// Define models for intern, employee, and trainee
+const Intern = mongoose.model('Interns', InternSchema);
+const Employee = mongoose.model('Employee', EmployeeSchema);
+const Trainee = mongoose.model('Trainees', TraineeSchema);
+
+// Route to handle intern form submission
+app.post('/api/intern', async (req, res) => {
+  try {
+    const internData = req.body;
+    const intern = new Intern(internData);
+    await intern.save();
+    res.status(201).send(intern);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+// Route to handle fetching all intern data
+app.get('/api/intern', async (req, res) => {
+  try {
+    // Find all interns in the database
+    const interns = await Intern.find();
+    
+    // Send the array of intern data as response
+    res.send(interns);
+    console.log(interns);
+    console.log('fetched',interns);
+  } catch (error) {
+    // If an error occurs, send 500 Internal Server Error status
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
+// Route to handle employee form submission
+app.post('/api/employee', async (req, res) => {
+  try {
+    const employeeData = req.body;
+    const employee = new Employee(employeeData);
+    await employee.save();
+    res.status(201).send(employee);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+app.get('/api/employee', async (req, res) => {
+  try {
+    // Find all interns in the database
+    const employees = await Employee.find();
+    
+    // Send the array of intern data as response
+    res.send(employees);
+    console.log(employees);
+    console.log('fetched',employees);
+  } catch (error) {
+    // If an error occurs, send 500 Internal Server Error status
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+// Route to handle trainee form submission
+app.post('/api/trainee', async (req, res) => {
+  try {
+    const traineeData = req.body;
+    const trainee = new Trainee(traineeData);
+    await trainee.save();
+    res.status(201).send(trainee);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+});
+
+
+app.get('/api/trainee', async (req, res) => {
+  try {
+    // Find all trainees in the database
+    const trainees = await Trainee.find();
+    
+    // Send the array of trainee data as response
+    res.send(trainees);
+    console.log('trainee',trainees)
+  } catch (error) {
+    // If an error occurs, send 500 Internal Server Error status
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Training schema
+const trainingSchema = new mongoose.Schema({
+  trainerName: String,
+  trainerEmail: String,
+  trainingName: String,
+  trainingstartDate: Date,
+  trainingendDate:Date,
+  modules: [String]
+});
+
+const Training = mongoose.model('Training', trainingSchema);
+
+// Routes
+app.post('/trainings', async (req, res) => {
+  try {
+    const { trainerName, trainerEmail, trainingName, trainingstartDate,trainingendDate, modules } = req.body;
+    const training = new Training({
+      trainerName,
+      trainerEmail,
+      trainingName,
+      trainingstartDate,
+      trainingendDate,
+      modules
+    });
+    console.log(training)
+    await training.save();
+    console.log(training)
+    res.send(training);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+app.get('/trainings', async (req, res) => {
+  try {
+    const trainings = await Training.find();
+    res.send(trainings);
+    console.log(trainings)
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+const emptSchema = new mongoose.Schema({
+  Training: String,
+  Trainer: String,
+  studymaterial: String,
+  startDate: Date,
+  endDate: Date
+});
+
+const Emptrain = mongoose.model('employetrain', emptSchema);
+
+// Route to add a new course
+app.post('/employeetraining', async (req, res) => {
+try {
+  const { Training, Trainer, studymaterial, startDate, endDate } = req.body;
+  const newCourse = new Emptrain({
+    Training,
+    Trainer,
+    studymaterial,
+    startDate,
+    endDate
+  });
+  await newCourse.save();
+  res.status(201).send('Course added successfully')
+} catch (error) {
+  console.error('Error adding course:', error);
+  res.status(500).send('Error adding course');
+}
+});
+app.get('/employeetraining', async (req, res) => {
+try {
+  console.log("came")
+  const courses = await Emptrain.find();
+  res.json(courses);
+  console.log(courses);
+} catch (error) {
+  console.error('Error fetching courses:', error);
+  res.status(500).send('Error fetching courses');
+}
+});
+
+
+
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+// Start server
+
 

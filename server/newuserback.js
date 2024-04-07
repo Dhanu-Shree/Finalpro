@@ -59,9 +59,9 @@ const TraineeSchema = new mongoose.Schema({
 });
 
 // Define models for intern, employee, and trainee
-const Intern = mongoose.model('Intern', InternSchema);
+const Intern = mongoose.model('Interns', InternSchema);
 const Employee = mongoose.model('Employee', EmployeeSchema);
-const Trainee = mongoose.model('Trainee', TraineeSchema);
+const Trainee = mongoose.model('Trainees', TraineeSchema);
 
 // Route to handle intern form submission
 app.post('/api/intern', async (req, res) => {
@@ -75,6 +75,24 @@ app.post('/api/intern', async (req, res) => {
   }
 });
 
+// Route to handle fetching all intern data
+app.get('/api/intern', async (req, res) => {
+  try {
+    // Find all interns in the database
+    const interns = await Intern.find();
+    
+    // Send the array of intern data as response
+    res.send(interns);
+    console.log(interns);
+    console.log('fetched',interns);
+  } catch (error) {
+    // If an error occurs, send 500 Internal Server Error status
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
 // Route to handle employee form submission
 app.post('/api/employee', async (req, res) => {
   try {
@@ -87,6 +105,22 @@ app.post('/api/employee', async (req, res) => {
   }
 });
 
+app.get('/api/employee', async (req, res) => {
+  try {
+    // Find all interns in the database
+    const employees = await Employee.find();
+    
+    // Send the array of intern data as response
+    res.send(employees);
+    console.log(employees);
+    console.log('fetched',employees);
+  } catch (error) {
+    // If an error occurs, send 500 Internal Server Error status
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
 // Route to handle trainee form submission
 app.post('/api/trainee', async (req, res) => {
   try {
@@ -98,6 +132,22 @@ app.post('/api/trainee', async (req, res) => {
     res.status(400).send(error);
   }
 });
+
+
+app.get('/api/trainee', async (req, res) => {
+  try {
+    // Find all trainees in the database
+    const trainees = await Trainee.find();
+    
+    // Send the array of trainee data as response
+    res.send(trainees);
+    console.log('trainee',trainees)
+  } catch (error) {
+    // If an error occurs, send 500 Internal Server Error status
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

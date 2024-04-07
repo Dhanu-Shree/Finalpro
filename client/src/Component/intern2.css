@@ -1,0 +1,64 @@
+
+  
+  .calendar-card,
+  .training-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(206, 174, 174, 0.1);
+    height: 520px; /* Set a fixed height */
+    overflow-y: auto; /* Make the content scrollable if it exceeds the height */
+  }
+  
+  .calendar-card {
+    flex: 0 0 40%; /* 40% width */
+    margin-right: 20px;
+    margin-left: 20px; /* Space between the cards */
+  }
+  
+  .training-card {
+    flex: 0 0 60%; /* 60% width */
+    margin-left: 90px;
+    width: 90%; /* Add space on the left side */
+  }
+  
+  /* Optional: Apply styles for the cards' content */
+  .calendar-card .card-body,
+  .training-card .card-body {
+    padding: 20px;
+  }
+  
+  /* Optional: Apply styles for the entire page */
+  body {
+    margin: 20px; /* Add space around the entire page */
+  }
+  .dum {
+    width: 500px;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+h1 {
+    text-align: center; /* Align the text center */
+    color: blue; /* Set the text color to blue */
+  }
+  .display {
+    padding: 20px;
+  }
+  
+  .training-card {
+    height: 500px; /* Set a fixed height for the card */
+    overflow-y: auto;
+    width: 150%;
+     /* Enable vertical scrolling */
+  }
+  
+  .training-list {
+    padding: 10px;
+  }
+  
+  .training-CRUD {
+    margin-bottom: 20px;
+  }
+  
+  

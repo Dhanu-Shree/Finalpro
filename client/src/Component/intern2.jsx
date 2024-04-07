@@ -110,7 +110,22 @@ function MainComponent() {
             </div>
           </div>
           <div className='col-md-8'>
-            
+            <div className="display">
+              <h1>Training Details</h1>
+              <div className="training-card">
+                <div className="training-list">
+                  {trainings.map(training => (
+                    <div className="training-CRUD" key={training._id}>
+                      <h2>{training.trainingName}</h2>
+                      <p><strong>Trainer:</strong> {training.trainerName}</p>
+                      
+                      <p><strong>Date:</strong> {new Date(training.trainingDate).toLocaleDateString()}</p>
+                      <DividerWithCheckboxes modules={training.modules} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

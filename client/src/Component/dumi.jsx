@@ -69,13 +69,46 @@ function MainComponent() {
     });
   };
 
-  const highlightTrainingDates = ({ date }) => {
-    if (loading) return false;
-    const formattedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    return trainings.some(training => {
-      const trainingDate = new Date(training.trainingDate);
-      return formattedDate.getDate() === trainingDate.getDate() && formattedDate.getMonth() === trainingDate.getMonth();
-    });
+  const handleModuleChange = async (trainingName, moduleIndex, isChecked) => {
+    try {
+      const updatedTrainings = trainings.map(training => {
+        if (training.trainingName === trainingName) {
+          const updatedModules = training.modules.map((module, index) => {
+            if (index === moduleIndex) {
+              return isChecked ? { ...module, completed: true } : { ...module, completed: false };
+            }
+            return module;
+          });
+          return { ...training, modules: updatedModules };
+        }
+        return training;
+      });
+      setTrainings(updatedTrainings);
+
+      // Calculate progress percentage
+      const completedModulesCount = updatedTrainings
+        .find(training => training.trainingName === trainingName)
+        .modules.filter(module => module.completed).length;
+      const totalModulesCount = updatedTrainings
+        .find(training => training.trainingName === trainingName).modules.length;
+      const progressPercentage = (completedModulesCount / totalModulesCount) * 100;
+      console.log(trainingName)
+      console.log(progressPercentage)
+
+      // Retrieve user ID and username from localStorage
+      const userId = localStorage.getItem('userId');
+      const username = localStorage.getItem('username');
+
+      // Send progress data to the backend
+      await axios.post('http://localhost:5000/user/progress', {
+        userId,
+        username,
+        trainingName,
+        progressPercentage,
+      });
+    } catch (error) {
+      console.error('Error updating module progress:', error);
+    }
   };
 
   return (
@@ -110,7 +143,26 @@ function MainComponent() {
             </div>
           </div>
           <div className='col-md-8'>
-            
+            <div className="display">
+              <h1>Training Details</h1>
+              <div className="training-card">
+                <div className="training-list">
+                  {trainings.map(training => (
+                    <div className="training-CRUD" key={training._id}>
+                      <h2>{training.trainingName}</h2>
+                      <p><strong>Trainer:</strong> {training.trainerName}</p>
+                      <p><strong>Date:</strong> {new Date(training.trainingDate).toLocaleDateString()}</p>
+                      <DividerWithCheckboxes
+                        modules={training.modules}
+                        onModuleChange={(moduleIndex, isChecked) =>
+                          handleModuleChange(training.trainingName, moduleIndex, isChecked)
+                        }
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

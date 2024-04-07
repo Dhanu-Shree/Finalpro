@@ -9,10 +9,15 @@ import TraineePage from './Component/Trainee';
 import InternPage from './Component/Intern';
 import CourseCard from './Component/Coursecard';
 import Calendars from './Component/Calendar';
-import Popup from './Component/dum';
+import Progress from './Component/dumi';
 import Module from './Component/module';
-import Display from './Component/display';
+import Display from './Component/intern2';
 import Newuser from './Component/newuser';
+import Calendar2 from './Component/Calendar2';
+import Admin2 from './Component/admin2';
+import Admin3 from './Component/thirdadmin'
+import Employee from './Component/Employee'
+
 
 function App() {
   return (
@@ -25,10 +30,15 @@ function App() {
         <Route path="/trainee" element={<TraineePage />} />
         <Route path="/coursecard" element={<CourseCard />} />
         <Route path='/nextpage' element={<Calendars />}/>
-        <Route path='/popup' element={<Popup />}/>
+        {/* <Route path='/popup' element={<Popup />}/> */}
         <Route path='/module' element={<Module/>}/>
-        <Route path='/display' element={<Display/>}/>
+        <Route path='/intern2' element={<Display/>}/>
         <Route path='newuser' element={<Newuser />}/>
+        <Route path='calendar2' element={<Calendar2 />}/>
+        <Route path='admin2' element ={<Admin2 />}/>
+        <Route path='progress' element={<Progress/>}/>
+        <Route path='thirdadmin' element ={<Admin3/>}/>
+        <Route path='employee' element={<Employee />}/>
     </Routes>
     </BrowserRouter>
   );

@@ -3,8 +3,15 @@
 }
 
 .training-card {
-  height: 400px; /* Set a fixed height for the card */
-  overflow-y: auto; /* Enable vertical scrolling */
+  height: 500px; /* Set a fixed height for the card */
+  overflow-y: auto;
+  width: 200%;
+  margin-left: 60px;
+  border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    height: 520px; /* Set a fixed height */
+    overflow-y: auto; /* Enable vertical scrolling */
 }
 
 .training-list {
