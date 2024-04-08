@@ -51,9 +51,9 @@ return (
 {assessments.map((assessment) => (
 <div key={assessment._id} className="assessment-item">
 <h5 className='cerd-title'>{assessment.assessmentName}</h5>
-<p>Links: {assessment.links}</p>
-<p>Start Time: {new Date(assessment.startTime).toLocaleString()}</p>
-<p>End Time: {new Date(assessment.endTime).toLocaleString()}</p>
+<p>Links: <a href={assessment.links}></a></p>
+<p>Start Time: {assessment.startTime}</p>
+<p>End Time: {assessment.endTime}</p>
 <p>Date of Assessment: {new Date(assessment.dates).toLocaleDateString()}</p>
 </div>
 ))}

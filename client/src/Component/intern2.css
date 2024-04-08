@@ -25,6 +25,8 @@
   .calendar-card .card-body,
   .training-card .card-body {
     padding: 20px;
+    width:350px;
+    margin-left: 50px;
   }
   
   /* Optional: Apply styles for the entire page */

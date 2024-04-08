@@ -112,11 +112,11 @@ function CourseCard() {
           </div>
           <div className="mb-3">
             <label htmlFor="startTime" className="form-label">Start Time</label>
-            <input type="date" className="form-control" id="startTime" name="startTime" value={assess.startTime} onChange={handleChanges} />
+            <input type="time" className="form-control" id="startTime" name="startTime" value={assess.startTime} onChange={handleChanges} />
           </div>
           <div className="mb-3">
             <label htmlFor="endTime" className="form-label">End Time</label>
-            <input type="date" className="form-control" id="endTime" name="endTime" value={assess.endTime} onChange={handleChanges} />
+            <input type="time" className="form-control" id="endTime" name="endTime" value={assess.endTime} onChange={handleChanges} />
           </div>
           <div className="mb-3">
             <label htmlFor="dates" className="form-label">Date of Assessment</label>

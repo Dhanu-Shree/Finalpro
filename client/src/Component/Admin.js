@@ -116,7 +116,7 @@ function InternNavBar() {
             <li className="nav-item">
               <NavLink
                 exact
-                to="/admin2"
+                to="/admin4"
                 activeClassName="active"
                 className="nav-links"
                 onClick={handleClick}

@@ -33,7 +33,7 @@ function InternNavBar() {
 
         const userDetails = allUserData.find(user => user.id === userid && user.name === username);
 
-        if (userDetails && role === 'intern') {
+        if (userDetails ) {
           setUserDetails(userDetails);
           setOpen(true);
         } else {
@@ -67,6 +67,9 @@ function InternNavBar() {
   );
 
   const handleClick = () => setClick(!click);
+  const handleLogoutClick=()=>{
+    localStorage.clear()
+  }
 
   return (
     <>
@@ -91,29 +94,29 @@ function InternNavBar() {
                 className="nav-links"
                 onClick={handleClick}
               >
-                Events
+                Modules & Events
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
                 exact
-                to="/intern2"
-                activeClassName="active"
-                className="nav-links"
-                onClick={handleClick}
-              >
-                Modules
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                to="/contact"
+                to="/progress"
                 activeClassName="active"
                 className="nav-links"
                 onClick={handleClick}
               >
                Progress
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                exact
+                to="/"
+                activeClassName="active"
+                className="nav-links"
+                onClick={handleLogoutClick}
+              >
+             Logout
               </NavLink>
             </li>
           </ul>

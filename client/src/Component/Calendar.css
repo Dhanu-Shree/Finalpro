@@ -11,7 +11,7 @@
   /* Styles for the calendar */
   .react-calendar {
     width: 100%;
-    max-width: 400px; /* Adjust as needed */
+    max-width: 350px; /* Adjust as needed */
     border: 1px solid #8f3131;
     border-radius: 8px;
     background-color: rgb(92, 215, 231);

@@ -127,9 +127,9 @@ app.get('/api/courses', async (req, res) => {
 const assessSchema = new mongoose.Schema({
   assessmentName: String,
   links: String,
-  startTime: Date,
-  endTime: Date,
-  dates: [Date], // Store assessment dates as an array of Date objects
+  startTime: String,
+  endTime: String,
+  dates: Date, // Store assessment dates as an array of Date objects
 });
 
 const Assessment = mongoose.model('Assessment', assessSchema);

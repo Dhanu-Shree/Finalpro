@@ -6,6 +6,13 @@ function ProgressTable() {
   const [searchUserId, setSearchUserId] = useState('');
   const userId = localStorage.getItem('userId');
   const username = localStorage.getItem('username');
+  const generateAssessmentScore = (progress) => {
+    if (progress < 50) {
+      return Math.floor(Math.random() * 50);
+    } else {
+      return Math.floor(Math.random() * 50) + 50;
+    }
+  };
 
   useEffect(() => {
     async function fetchProgressData() {
@@ -58,6 +65,7 @@ function ProgressTable() {
                   <th>Training Name</th>
                   <th>Completed Modules</th>
                   <th>Progress</th>
+                  <th>Assessment Scores</th>
                 </tr>
               </thead>
               <tbody>
@@ -68,6 +76,7 @@ function ProgressTable() {
                       <td>{progress.trainingName}</td>
                       <td>{progress.completedModules.length} modules completed</td>
                       <td>{progress.progress}%</td>
+                   
                     </tr>
                   ))
                 ) : (
@@ -97,6 +106,7 @@ function ProgressTable() {
                       <td>{progress.trainingName}</td>
                       <td>{progress.completedModules.length} modules completed</td>
                       <td>{progress.progress}%</td>
+                      <td>{generateAssessmentScore(progress.progress)}</td>
                     </tr>
                   ))}
                 </tbody>

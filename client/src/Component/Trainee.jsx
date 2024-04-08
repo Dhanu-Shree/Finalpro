@@ -4,6 +4,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import DividerWithCheckboxes from './DividerWithCheckboxes';
 import './intern2.css';
+import TraineeNavbar from './Navfortrainee';
 
 function MainComponent() {
   const [courses, setCourses] = useState([]);
@@ -80,6 +81,7 @@ function MainComponent() {
 
   return (
     <div className="app-container">
+      <TraineeNavbar/>
       <div className="container-fluid">
         <div className='row'>
           <div className='col-md-4'>
