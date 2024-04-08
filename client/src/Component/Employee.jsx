@@ -6,7 +6,8 @@ import NavBar from './Admin.js';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './Calendar.css';
-import './intern2.css';
+import './Employee.css';
+
 
 function CourseCard() {
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -68,49 +69,50 @@ function CourseCard() {
  
   return (
     <div className="app-container">
-      <NavBar />
-      <div className="container-fluid">
-        <div className='row'>
-          <div className='col-md-6 grid-item'>
-            <div className="card">
-              <div className="card-body">
+    <NavBar />
+    <div className="container-fluid">
+      <div className='row'>
+        <div className='col-md-6 grid-item'>
+          <div className="card">
+            <div className="card-body">
               <h1>Training Details</h1>
-        <div className="training-card">
-          <div className="training-list">
-            {trainings.map(training => (
-              <div className="training-CRUD" key={training._id}>
-                <h2>{training.Training}</h2>
-                <p><strong>Trainer:</strong> {training.Trainer}</p>
-                <p><strong>Study Material:</strong> {training.studymaterial}</p>
-                <p><strong>Start Date:</strong> {training.startDate}</p>
-                <p><strong>End Date:</strong> {training.endDate}</p>
-                {/* Add additional details as needed */}
-              </div>
-            ))}
-          </div>
-        </div>
+              <div className="training-card-css">
+                <div className="training-list">
+                  {courses.map(training => (
+                    <div className="training-CRUD" key={training._id}>
+                      <h2>{training.Training}</h2>
+         
+                      <p><strong>Trainer:</strong> {training.Trainer}</p>
+                      <p><strong>Study Material:</strong> {training.studymaterial}</p>
+                      <p><strong>Start Date:</strong> {training.startDate}</p>
+                      <p><strong>End Date:</strong> {training.endDate}</p>
+                      {/* Add additional details as needed */}
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-          <div className='col-md-6 grid-item'>
-            <div className="card">
-              <div className="card-body">
-                <h2>Calendar (Courses)</h2>
-                <div className="react-calendar">
-                  <Calendar
-                    onChange={setSelectedDate}
-                    value={selectedDate}
-                    tileClassName={({ date, view }) =>
-                      view === 'month' && highlightCourseDates({ date }) ? 'highlight' : null
-                    }
-                  />
-                </div>
+        </div>
+        <div className='col-md-6 grid-item'>
+          <div className="card">
+            <div className="card-body">
+              <h2>Calendar (Courses)</h2>
+              <div className="react-calendar">
+                <Calendar
+                  onChange={setSelectedDate}
+                  value={selectedDate}
+                  tileClassName={({ date, view }) =>
+                    view === 'month' && highlightCourseDates({ date }) ? 'highlight' : null
+                  }
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
   );
 }
 

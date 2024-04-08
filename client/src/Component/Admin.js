@@ -36,7 +36,7 @@ function InternNavBar() {
         // Assuming these are fetched from localStorage
         const username = localStorage.getItem('userName');
         const userid = localStorage.getItem('userId');
-        const password = ''; // Assuming password is stored securely or not needed for fetching user details
+        // Assuming password is stored securely or not needed for fetching user details
 
         // Find user details
         const userDetails = allUserData.find(user => user.id === userid && user.name === username);
@@ -75,6 +75,9 @@ function InternNavBar() {
   );
 
   const handleClick = () => setClick(!click);
+  const handleLogoutClick = () =>{ setClick(!click);
+    localStorage.clear()
+  }
   return (
     <>
       <nav className="navbar">
@@ -87,15 +90,15 @@ function InternNavBar() {
 
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
-              <NavLink>
-              
-              <Button onClick={() => setOpen(true)} style={{ color: 'white' }}>Open Drawer</Button>
+            <NavLink
+                exact
+                to="/thirdadmin"
+                activeClassName="active"
+                className="nav-links"
+                onClick={handleClick}
+              >
 
-      <Drawer open={open} onClose={() => setOpen(false)}>
-        {DrawerList}
-      </Drawer>
-    
-  
+            Employee
               
               </NavLink>
             </li>
@@ -107,7 +110,7 @@ function InternNavBar() {
                 className="nav-links"
                 onClick={handleClick}
               >
-               Schedule
+               Schedule Intern
               </NavLink>
             </li>
             <li className="nav-item">
@@ -118,23 +121,32 @@ function InternNavBar() {
                 className="nav-links"
                 onClick={handleClick}
               >
-                Assign_Training
+             Progress
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
+                exact
+                to="/"
+                activeClassName="active"
+                className="nav-links"
+                onClick={handleLogoutClick}
+              >
+               Logout
+              </NavLink>
+            </li>
+          </ul>
+          <div className="nav-icon" onClick={handleClick}>
+            {/* <i className={click ? "fas fa-times" : "fas fa-bars"}></i> */}
+            <NavLink
                 exact
                 to="/contact"
                 activeClassName="active"
                 className="nav-links"
                 onClick={handleClick}
               >
-                Progress
+                Logout
               </NavLink>
-            </li>
-          </ul>
-          <div className="nav-icon" onClick={handleClick}>
-            {/* <i className={click ? "fas fa-times" : "fas fa-bars"}></i> */}
 
             {click ? (
               <span className="icon">

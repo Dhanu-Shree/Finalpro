@@ -17,7 +17,7 @@
   .form-card {
     flex: 0 0 60%; /* 60% width */
     margin-left: 90px;
-    width: 90%; /* Add space on the left side */
+    width: 75%; /* Add space on the left side */
   }
   
   /* Optional: Apply styles for the cards' content */
@@ -31,7 +31,7 @@
     margin: 20px; /* Add space around the entire page */
   }
   .dum {
-    width: 500px;
+    width: 300px;
     padding: 20px;
     border: 2px solid #ccc;
     border-radius: 8px;

@@ -23,7 +23,6 @@ function ProgressTable() {
     fetchProgressData();
   }, []);
 
-  // Group progressData by user ID
   const groupedProgressData = {};
   progressData.forEach(progress => {
     if (!groupedProgressData[progress.userId]) {
@@ -32,14 +31,14 @@ function ProgressTable() {
     groupedProgressData[progress.userId].push(progress);
   });
 
-  // Filter progressData based on searchUserId
   const filteredProgressData = Object.keys(groupedProgressData)
     .filter(userId => userId.toLowerCase().includes(searchUserId.toLowerCase()))
     .map(userId => groupedProgressData[userId]);
 
   return (
+    <div><h1> Progress</h1>
     <div className='progress-table-container'>
-      <h1>Progress</h1>
+      
       <div className="search-container">
         <input
           type="text"
@@ -48,62 +47,65 @@ function ProgressTable() {
           onChange={e => setSearchUserId(e.target.value)}
         />
       </div>
-      {searchUserId ? (
-        <div className="user-progress-table">
-          <h2>User ID: {searchUserId}</h2>
-          <table className='progress-table'>
-            <thead>
-              <tr>
-                <th>Username</th>
-                <th>Training Name</th>
-                <th>Completed Modules</th>
-                <th>Progress</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredProgressData.length > 0 ? (
-                filteredProgressData[0].map(progress => (
-                  <tr key={progress._id}>
-                    <td>{progress.username}</td>
-                    <td>{progress.trainingName}</td>
-                    <td>{progress.completedModules.length} modules completed</td>
-                    <td>{progress.progress}%</td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="4">No progress data found for user ID: {searchUserId}</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      ) : (
-        Object.keys(groupedProgressData).map(userId => (
-          <div key={userId} className="user-progress-table">
-            <h2>User ID: {userId}</h2>
-            <h3>Username: {groupedProgressData[userId][0].username}</h3>
+      <div className="progress-table-scrollable">
+        {searchUserId ? (
+          <div className="user-progress-table">
+            <h2>User ID: {searchUserId}</h2>
             <table className='progress-table'>
               <thead>
                 <tr>
+                  <th>Username</th>
                   <th>Training Name</th>
                   <th>Completed Modules</th>
                   <th>Progress</th>
                 </tr>
               </thead>
               <tbody>
-                {groupedProgressData[userId].map(progress => (
-                  <tr key={progress._id}>
-                    <td>{progress.trainingName}</td>
-                    <td>{progress.completedModules.length} modules completed</td>
-                    <td>{progress.progress}%</td>
+                {filteredProgressData.length > 0 ? (
+                  filteredProgressData[0].map(progress => (
+                    <tr key={progress._id}>
+                      <td>{progress.username}</td>
+                      <td>{progress.trainingName}</td>
+                      <td>{progress.completedModules.length} modules completed</td>
+                      <td>{progress.progress}%</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="4">No progress data found for user ID: {searchUserId}</td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>
-        ))
-      )}
+        ) : (
+          Object.keys(groupedProgressData).map(userId => (
+            <div key={userId} className="user-progress-table">
+              <h3>User ID: {userId}</h3>
+              <h3>Username: {groupedProgressData[userId][0].username}</h3>
+              <table className='progress-table'>
+                <thead>
+                  <tr>
+                    <th>Training Name</th>
+                    <th>Completed Modules</th>
+                    <th>Progress</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {groupedProgressData[userId].map(progress => (
+                    <tr key={progress._id}>
+                      <td>{progress.trainingName}</td>
+                      <td>{progress.completedModules.length} modules completed</td>
+                      <td>{progress.progress}%</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ))
+        )}
+      </div>
+    </div>
     </div>
   );
 }

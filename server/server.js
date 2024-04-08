@@ -372,6 +372,89 @@ try {
 }
 });
 
+const progressSchema = new mongoose.Schema({
+  userId: String,
+  username: String,
+  trainingName: String,
+  completedModules: [String],
+  progress: Number
+});
+
+
+const Progress = mongoose.model('Progress', progressSchema);
+
+
+
+
+
+// app.post('/user/progress', async (req, res) => {
+//   try {
+//     const { userId, username, trainingName, completedModules, progress } = req.body;
+ 
+//     const newProgress = new Progress({
+//       userId,
+//       username,
+//       trainingName,
+//       completedModules,
+//       progress
+//     });
+
+//     await newProgress.save();
+//     res.status(201).send('Progress data saved successfully');
+//   } catch (error) {
+//     console.error('Error saving progress data:', error);
+//     res.status(500).send('Internal server error');
+//   }
+// });
+// Route to fetch progress data for a specific userId
+
+app.post('/user/progress', async (req, res) => {
+  try {
+    const { userId, username, trainingName, completedModules, progress } = req.body;
+
+    // Check if a progress document already exists for the given userId and trainingName
+    let existingProgress = await Progress.findOne({ userId, trainingName });
+
+    if (existingProgress) {
+      // Update existing progress document with new completedModules and progress
+      existingProgress.completedModules = completedModules;
+      existingProgress.progress = progress;
+
+      // Save the updated progress document
+      await existingProgress.save();
+      res.status(200).send('Progress data updated successfully');
+    } else {
+      // Create a new progress document
+      const newProgress = new Progress({
+        userId,
+        username,
+        trainingName,
+        completedModules,
+        progress
+      });
+
+      // Save the progress data to the database
+      await newProgress.save();
+      res.status(201).send('Progress data saved successfully');
+    }
+  } catch (error) {
+    console.error('Error saving/updating progress data:', error);
+    res.status(500).send('Internal server error');
+  }
+});
+
+app.get('/user/progress', async (req, res) => {
+  try {
+   
+ console.log('datas of progress')
+    const progressData = await Progress.find();
+    res.json(progressData);
+    console.log('Progress : ', progressData)
+  } catch (error) {
+    console.error('Error fetching progress data:', error);
+    res.status(500).send('Internal server error');
+  }
+});
 
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

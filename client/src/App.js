@@ -9,7 +9,7 @@ import TraineePage from './Component/Trainee';
 import InternPage from './Component/Intern';
 import CourseCard from './Component/Coursecard';
 import Calendars from './Component/Calendar';
-import Progress from './Component/dumi';
+import Progress from './Component/progress';
 import Module from './Component/module';
 import Display from './Component/intern2';
 import Newuser from './Component/newuser';
@@ -17,6 +17,8 @@ import Calendar2 from './Component/Calendar2';
 import Admin2 from './Component/admin2';
 import Admin3 from './Component/thirdadmin'
 import Employee from './Component/Employee'
+import Progressuser from './Component/progressforuser';
+
 
 
 function App() {
@@ -39,6 +41,7 @@ function App() {
         <Route path='progress' element={<Progress/>}/>
         <Route path='thirdadmin' element ={<Admin3/>}/>
         <Route path='employee' element={<Employee />}/>
+        <Route path='admin4' element={<Progressuser/>}/>
     </Routes>
     </BrowserRouter>
   );

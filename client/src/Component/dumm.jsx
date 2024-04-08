@@ -119,9 +119,8 @@ function MainComponent() {
                       <h2>{training.trainingName}</h2>
                       <p><strong>Trainer:</strong> {training.trainerName}</p>
                       
-                      <p><strong>Start Date:</strong> {new Date(training.trainingstartDate).toLocaleDateString()}</p>
-                      <p><strong>End Date:</strong> {new Date(training.trainingendDate).toLocaleDateString()}</p>
-                      <DividerWithCheckboxes modules={training.modules}   trainingName={training.trainingName} />
+                      <p><strong>Date:</strong> {new Date(training.trainingDate).toLocaleDateString()}</p>
+                      <DividerWithCheckboxes modules={training.modules} />
                     </div>
                   ))}
                 </div>

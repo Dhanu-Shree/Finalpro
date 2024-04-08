@@ -1,0 +1,117 @@
+/* Calendars.css */
+
+/* Styles for the calendar container */
+.calendar-container {
+    width: 100%;
+    max-width: 400px; /* Adjust as needed */
+    margin: 0 auto;
+    background-color: rgb(167, 214, 198);
+  }
+  
+  /* Styles for the calendar */
+  .react-calendar {
+    width: 100%;
+    max-width: 400px; /* Adjust as needed */
+    border: 1px solid #8f3131;
+    border-radius: 8px;
+    background-color: rgb(92, 215, 231);
+  }
+  
+  /* Styles for the highlighted dates */
+  .highlight {
+    background-color: #c21c5c; /* Yellow color for highlighted dates */
+    color: #d5dfc3; /* Black text color */
+  }
+  .card-body{
+    background-color: rgb(243, 243, 243);
+    padding: 40px;
+  }
+  
+  
+  .calendar-card,
+  .training-card-css{
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(206, 174, 174, 0.1);
+    height: 520px; /* Set a fixed height */
+    overflow-y: auto; /* Make the content scrollable if it exceeds the height */
+  }
+  
+  .calendar-card {
+    flex: 0 0 40%; /* 40% width */
+    margin-right: 20px;
+    margin-left: 20px; /* Space between the cards */
+  }
+  
+  .training-card-css{
+    flex: 0 0 60%; /* 60% width */
+    margin-left: 90px;
+    width: 90%; /* Add space on the left side */
+  }
+  
+  /* Optional: Apply styles for the cards' content */
+  .calendar-card .card-body,
+  .training-card-css .card-body {
+    padding: 20px;
+  }
+  
+  /* Optional: Apply styles for the entire page */
+  body {
+    margin: 20px; /* Add space around the entire page */
+  }
+  .dum {
+    width: 500px;
+    padding: 20px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+h1 {
+    text-align: center; /* Align the text center */
+    color: blue; /* Set the text color to blue */
+  }
+  .display {
+    padding: 20px;
+  }
+  
+  .training-card-css{
+    height: 400px; /* Set a fixed height for the card */
+    overflow-y: auto;
+    width: 150%;
+    margin-left: auto;
+     /* Enable vertical scrolling */
+  }
+  .training-card-css {
+    height: 500px;
+    overflow-y: auto;
+    width: 100%;
+    margin-left: auto;
+}
+  
+  .training-list {
+    padding: 10px;
+  }
+  
+  .training-CRUD {
+    margin-bottom: 20px;
+  }
+  .training-CRUD h2 {
+    text-align: center;
+    color:blueviolet /* Center the training name */
+  }
+  /* Coursecard.css */
+.training-CRUD p {
+    margin-bottom: 10px; /* Add margin to separate details */
+  }
+  
+  .training-CRUD p:last-child {
+    margin-bottom: 0; /* Remove margin from last detail */
+  }
+  
+  .training-CRUD p + p {
+    border-bottom: 1px solid #ccc; /* Add border between details */
+    padding-bottom: 5px; /* Add padding for better spacing */
+  }
+  
+  
+  

@@ -33,8 +33,10 @@ const Login = () => {
 
       // Check if the entered login details match any user
       console.log(username)
-     const a= localStorage.setItem("userName", username);
+     const a= localStorage.setItem("username", username);
+     console.log(a)
       const b=localStorage.setItem("userId", userid);
+      console.log(b)
       
      
       const isValidUser = allUserData.some((user) => {
