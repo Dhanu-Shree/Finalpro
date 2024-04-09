@@ -19,7 +19,7 @@ function InternNavBar() {
   const [click, setClick] = useState(false);
   const [open, setOpen] = useState(false);
   const [userDetails, setUserDetails] = useState(null); // State to store user details
-
+  const name = localStorage.getItem("username");
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -75,7 +75,7 @@ function InternNavBar() {
   );
 
   const handleClick = () => setClick(!click);
-  const handleLogoutClick = () =>{ setClick(!click);
+  const handleLogoutClick = () =>{
     localStorage.clear()
   }
   return (
@@ -83,12 +83,24 @@ function InternNavBar() {
       <nav className="navbar">
         <div className="nav-container">
           <NavLink exact to="/admin" className="nav-logo">
-            <span>WELCOME </span>
+            <span>WELCOME {name} </span>
             {/* <i className="fas fa-code"></i> */}
            
           </NavLink>
 
           <ul className={click ? "nav-menu active" : "nav-menu"}>
+          <li className="nav-item">
+            <NavLink
+                exact
+                to="/newuser"
+                activeClassName="active"
+                className="nav-links"
+                onClick={handleClick}
+              >
+
+            CreateUser
+              
+              </NavLink></li>
             <li className="nav-item">
             <NavLink
                 exact

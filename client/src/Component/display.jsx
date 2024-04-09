@@ -1,42 +1,141 @@
+
+import { NavLink } from "react-router-dom";
+import "./Admin.css";
+import {  HamburgetMenuClose, HamburgetMenuOpen } from "./Icons";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import DividerWithCheckboxes from './DividerWithCheckboxes'; // Import the DividerWithCheckboxes component
-import './Display.css';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
 
-function Display() {
-  const [trainings, setTrainings] = useState([]);
+
+
+
+function InternNavBar() {
+  const [click, setClick] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [userDetails, setUserDetails] = useState(null); // State to store user details
 
   useEffect(() => {
-    fetchTrainings();
+    const fetchData = async () => {
+      try {
+        // Replace these with your actual fetch calls
+        const internResponse = await axios.get('http://localhost:5000/api/intern');
+        const internData = internResponse.data;
+        const employeeResponse = await axios.get('http://localhost:5000/api/employee');
+        const employeeData = employeeResponse.data;
+        const traineeResponse = await axios.get('http://localhost:5000/api/trainee');
+        const traineeData = traineeResponse.data;
+
+        const allUserData = [...internData, ...employeeData, ...traineeData];
+
+        // Assuming these are fetched from localStorage
+        const username = localStorage.getItem('userName');
+        const userid = localStorage.getItem('userId');
+        // Assuming password is stored securely or not needed for fetching user details
+
+        // Find user details
+        const userDetails = allUserData.find(user => user.id === userid && user.name === username);
+        
+        if (userDetails) {
+          setUserDetails(userDetails);
+          setOpen(true); // Open the drawer
+        } else {
+          console.log('User not found');
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    fetchData();
   }, []);
 
-  const fetchTrainings = async () => {
-    try {
-      const response = await axios.get('http://localhost:5000/trainings'); // Replace 'YOUR_BACKEND_ENDPOINT' with your backend URL
-      setTrainings(response.data);
-    } catch (error) {
-      console.error('Error fetching trainings:', error);
-    }
-  };
+  const DrawerList = (
+    <Box sx={{ width: 250 }} role="presentation" onClick={() => setOpen(false)}>
+      <List>
+        <ListItem disablePadding>
+          <ListItemButton>
+            <ListItemText primary="User Details" />
+          </ListItemButton>
+        </ListItem>
+        {userDetails && Object.entries(userDetails).map(([key, value]) => (
+          <ListItem key={key} disablePadding>
+            <ListItemButton>
+              <ListItemText primary={`${key}: ${value}`} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
 
+  const handleClick = () => setClick(!click);
+  const handleLogoutClick = () =>{
+    localStorage.clear()
+  }
   return (
-    <div className="display">
-      <h1>Training Details</h1>
-      <div className="training-card">
-        <div className="training-list">
-          {trainings.map(training => (
-            <div className="training-CRUD" key={training._id}>
-              <h2>{training.trainingName}</h2>
-              <p><strong>Trainer:</strong> {training.trainerName}</p>
-              <p><strong>Email:</strong> {training.trainerEmail}</p>
-              <p><strong>Date:</strong> {new Date(training.trainingDate).toLocaleDateString()}</p>
-              <DividerWithCheckboxes modules={training.modules} />
-            </div>
-          ))}
+    <>
+      <nav className="navbar">
+        <div className="nav-container">
+       
+
+          <ul className={click ? "nav-menu active" : "nav-menu"}>
+          
+            <li className="nav-item">
+              <NavLink
+                exact
+                to="/admin4"
+                activeClassName="active"
+                className="nav-links"
+                onClick={handleClick}
+              >
+             <h1>Progress</h1>
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                exact
+                to="/"
+                activeClassName="active"
+                className="nav-links"
+                onClick={handleLogoutClick}
+              >
+               Logout
+              </NavLink>
+            </li>
+          </ul>
+          <div className="nav-icon" onClick={handleClick}>
+            {/* <i className={click ? "fas fa-times" : "fas fa-bars"}></i> */}
+            <NavLink
+                exact
+                to="/contact"
+                activeClassName="active"
+                className="nav-links"
+                onClick={handleClick}
+              >
+                Logout
+              </NavLink>
+
+            {click ? (
+              <span className="icon">
+                <HamburgetMenuOpen />{" "}
+              </span>
+            ) : (
+              <span className="icon">
+                <HamburgetMenuClose />
+              </span>
+            )}
+          </div>
         </div>
-      </div>
-    </div>
+      </nav>
+      
+    </>
   );
 }
 
-export default Display;
+export default InternNavBar;

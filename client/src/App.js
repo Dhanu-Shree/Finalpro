@@ -19,6 +19,7 @@ import Admin3 from './Component/thirdadmin'
 import Employee from './Component/Employee'
 import Progressuser from './Component/progressforuser';
 import Progresstraining from './Component/dumi';
+import ProgressforTrainee from './Component/progresstrainee';
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
         <Route path='employee' element={<Employee />}/>
         <Route path='admin4' element={<Progressuser/>}/>
         <Route path='pintern' element={<Progresstraining/>}/>
+        <Route path='traineeprogress' element={<ProgressforTrainee/>}/>
     </Routes>
     </BrowserRouter>
   );

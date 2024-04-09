@@ -75,7 +75,9 @@ function ProgressTable() {
                       <td>{progress.username}</td>
                       <td>{progress.trainingName}</td>
                       <td>{progress.completedModules.length} modules completed</td>
+                    
                       <td>{progress.progress}%</td>
+                      <td>{generateAssessmentScore(progress.progress)}</td>
                    
                     </tr>
                   ))
@@ -98,6 +100,7 @@ function ProgressTable() {
                     <th>Training Name</th>
                     <th>Completed Modules</th>
                     <th>Progress</th>
+                    <th> AssessmentScores</th>
                   </tr>
                 </thead>
                 <tbody>

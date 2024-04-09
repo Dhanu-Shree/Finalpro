@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import DividerWithCheckboxes from './DividerWithCheckboxes';
 import './intern2.css';
 import TraineeNavbar from './Navfortrainee';
+import './Coursecard.css'; // Import CSS for CourseCard styling
 
 function MainComponent() {
   const [courses, setCourses] = useState([]);
@@ -84,35 +84,55 @@ function MainComponent() {
       <TraineeNavbar/>
       <div className="container-fluid">
         <div className='row'>
-          <div className='col-md-4'>
+          <div className='col-md-12'>
             <h1 className="page-heading">Calendars</h1>
-            <div className="calendar-card">
-              <div className="card-body">
-                <h2>Calendar (Courses)</h2>
-                <div className="react-calendar">
-                  <Calendar
-                    onChange={setSelectedDate}
-                    value={selectedDate}
-                    tileClassName={({ date, view }) =>
-                      view === 'month' && highlightCourseDates({ date }) ? 'highlight' : null
-                    }
-                  />
+            <div className="scrollable-cards" style={{overflowX: 'auto', whiteSpace: 'nowrap'}}>
+              {/* Course Calendar Card */}
+              <div className="card" style={{display: 'inline-block', marginRight: '10px'}}>
+                <div className="card-body">
+                  <h2>Calendar (Courses)</h2>
+                  <div className="react-calendar">
+                    <Calendar
+                      onChange={setSelectedDate}
+                      value={selectedDate}
+                      tileClassName={({ date, view }) =>
+                        view === 'month' && highlightCourseDates({ date }) ? 'highlight' : null
+                      }
+                    />
+                  </div>
                 </div>
-                <h2>Calendar (Assessment Dates)</h2>
-                <div className="react-calendar">
-                  <Calendar
-                    onChange={setSelectedDate}
-                    value={selectedDate}
-                    tileClassName={({ date, view }) =>
-                      view === 'month' && highlightAssessmentDates({ date }) ? 'highlight' : null
-                    }
-                  />
+              </div>
+              {/* Assessment Dates Calendar Card */}
+              <div className="card" style={{display: 'inline-block', marginRight: '10px'}}>
+                <div className="card-body">
+                  <h2>Calendar (Assessment Dates)</h2>
+                  <div className="react-calendar">
+                    <Calendar
+                      onChange={setSelectedDate}
+                      value={selectedDate}
+                      tileClassName={({ date, view }) =>
+                        view === 'month' && highlightAssessmentDates({ date }) ? 'highlight' : null
+                      }
+                    />
+                  </div>
+                </div>
+              </div>
+              {/* Training Dates Calendar Card */}
+              <div className="card" style={{display: 'inline-block'}}>
+                <div className="card-body">
+                  <h2>Calendar (Training Dates)</h2>
+                  <div className="react-calendar">
+                    <Calendar
+                      onChange={setSelectedDate}
+                      value={selectedDate}
+                      tileClassName={({ date, view }) =>
+                        view === 'month' && highlightTrainingDates({ date }) ? 'highlight' : null
+                      }
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className='col-md-8'>
-            
           </div>
         </div>
       </div>

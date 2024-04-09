@@ -13,7 +13,6 @@ const Login = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    const c=localStorage.setItem("Role",role);
 
     try {
       // Fetch intern data
@@ -32,13 +31,10 @@ const Login = () => {
       const allUserData = [...internData, ...employeeData, ...traineeData];
 
       // Check if the entered login details match any user
-      console.log(username)
-     const a= localStorage.setItem("username", username);
-     console.log(a)
-      const b=localStorage.setItem("userId", userid);
-      console.log(b)
-      
-     
+      localStorage.setItem("username", username);
+      localStorage.setItem("userId", userid);
+      localStorage.setItem("Role", role);
+
       const isValidUser = allUserData.some((user) => {
         return user.id === userid && user.name === username && user.password === password;
       });
@@ -111,6 +107,7 @@ const Login = () => {
         <div className="button-container">
           <button type="submit" onClick={handleClick}>Login</button>
         </div>
+        <h6> Welcome</h6>
       </form>
     </div>
   );

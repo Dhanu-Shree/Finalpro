@@ -9,11 +9,17 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
+import './Navforintern.css'
 
 function InternNavBar() {
   const [click, setClick] = useState(false);
   const [open, setOpen] = useState(false);
-  const [userDetails, setUserDetails] = useState(null); // State to store user details
+  const [userDetails, setUserDetails] = useState(null);
+  const handleLogoutClick = () =>{
+    localStorage.clear()
+  }
+
+   // State to store user details
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,7 +79,7 @@ function InternNavBar() {
       <nav className="navbar">
         <div className="nav-container">
           <NavLink  className="nav-logo">
-            <span>Welcome </span>
+            <span className='center'>Welcome</span>
           </NavLink>
 
           <ul className={click ? "nav-menu active" : "nav-menu"}>
@@ -86,34 +92,24 @@ function InternNavBar() {
             <li className="nav-item">
               <NavLink
                 exact
-                to="/intern2"
+                to="/admin4"
                 activeClassName="active"
                 className="nav-links"
                 onClick={handleClick}
               >
-                Events
+                Progress
               </NavLink>
             </li>
+           
             <li className="nav-item">
               <NavLink
                 exact
-                to="/intern2"
+                to="/"
                 activeClassName="active"
                 className="nav-links"
-                onClick={handleClick}
+                onClick={handleLogoutClick}
               >
-                Modules
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                to="/contact"
-                activeClassName="active"
-                className="nav-links"
-                onClick={handleClick}
-              >
-               Progress
+               Logout
               </NavLink>
             </li>
           </ul>
