@@ -58,18 +58,27 @@ function InternNavBar() {
   const DrawerList = (
     <Box sx={{ width: 250 }} role="presentation" onClick={() => setOpen(false)}>
       <List>
-        <ListItem disablePadding>
+      <ListItem disablePadding>
+  <ListItemButton>
+    <ListItemText primary="User Details" />
+  </ListItemButton>
+</ListItem>
+{userDetails &&
+  Object.entries(userDetails).map(([key, value]) => {
+    // Exclude keys like id, password, and __v
+    if (key !== '_id' && key !== 'password' && key !== '__v') {
+      return (
+        <ListItem key={key} disablePadding>
           <ListItemButton>
-            <ListItemText primary="User Details" />
+            {/* Apply styles based on key or value */}
+            <ListItemText primary={`${key}: ${value}`} style={{ color: key === 'name' ? 'blue' : 'inherit' }} />
           </ListItemButton>
         </ListItem>
-        {userDetails && Object.entries(userDetails).map(([key, value]) => (
-          <ListItem key={key} disablePadding>
-            <ListItemButton>
-              <ListItemText primary={`${key}: ${value}`} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+      );
+    }
+    return null; // Skip rendering for excluded keys
+  })
+}
       </List>
     </Box>
   );

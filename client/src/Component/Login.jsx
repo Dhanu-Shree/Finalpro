@@ -31,7 +31,7 @@ const Login = () => {
       const allUserData = [...internData, ...employeeData, ...traineeData];
 
       // Check if the entered login details match any user
-      localStorage.setItem("username", username);
+      localStorage.setItem("userName", username);
       localStorage.setItem("userId", userid);
       localStorage.setItem("Role", role);
 
