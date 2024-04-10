@@ -12,6 +12,13 @@ import ListItemText from '@mui/material/ListItemText';
 import './Navforintern.css'
 
 function InternNavBar() {
+
+  const username = localStorage.getItem('userName');
+  const userid = localStorage.getItem('userId');
+  const role = localStorage.getItem('Role');
+
+
+
   const [click, setClick] = useState(false);
   const [open, setOpen] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
@@ -33,17 +40,14 @@ function InternNavBar() {
 
         const allUserData = [...internData, ...employeeData, ...traineeData];
 
-        const username = localStorage.getItem('userName');
-        const userid = localStorage.getItem('userId');
-        const role = localStorage.getItem('Role');
-
+     
         const userDetails = allUserData.find(user => user.id === userid && user.name === username);
 
-        if (userDetails && role === 'intern') {
+        if (userDetails && role === 'trainee') {
           setUserDetails(userDetails);
           setOpen(true);
         } else {
-          console.log('User not found or not an intern');
+          console.log('User not found or not an trainee');
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -79,7 +83,7 @@ function InternNavBar() {
       <nav className="navbar">
         <div className="nav-container">
           <NavLink  className="nav-logo">
-            <span className='center'>Welcome</span>
+            <span className='center'>Welcome {username}</span>
           </NavLink>
 
           <ul className={click ? "nav-menu active" : "nav-menu"}>

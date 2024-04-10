@@ -4,7 +4,8 @@ import './Progress.css';
 function ProgressTable() {
   const [progressData, setProgressData] = useState([]);
   const [searchUserId, setSearchUserId] = useState('');
-  const userId = localStorage.getItem('userId');
+  const userid = localStorage.getItem('userId');
+  console.log('The name is',userid)
   const username = localStorage.getItem('username');
   const generateAssessmentScore = (progress) => {
     if (progress < 50) {
@@ -43,7 +44,7 @@ function ProgressTable() {
     .map(userId => groupedProgressData[userId]);
 
   return (
-    <div><h1> Progress</h1>
+    <div><h1> Progress {username}</h1>
     <div className='progress-table-container'>
       
       <div className="search-container">

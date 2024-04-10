@@ -4,7 +4,8 @@ import './Progress.css';
 function ProgressTable() {
   const [progressData, setProgressData] = useState([]);
   const userId = localStorage.getItem('userId');
-  const username = localStorage.getItem('username');
+  const username = localStorage.getItem('userName');
+  console.log('name',username)
 
   // Define the generateAssessmentScore function
   const generateAssessmentScore = (progress) => {

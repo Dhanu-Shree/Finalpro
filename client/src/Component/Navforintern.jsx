@@ -13,7 +13,11 @@ import ListItemText from '@mui/material/ListItemText';
 function InternNavBar() {
   const [click, setClick] = useState(false);
   const [open, setOpen] = useState(false);
-  const [userDetails, setUserDetails] = useState(null); // State to store user details
+  const [userDetails, setUserDetails] = useState(null);
+  
+  const userId = localStorage.getItem('userId');
+  const username = localStorage.getItem('userName');
+  console.log('name',username)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,7 +80,7 @@ function InternNavBar() {
       <nav className="navbar">
         <div className="nav-container">
           <NavLink className="nav-logo">
-            <span>Welcome</span>
+            <span>Welcome {username}</span>
           </NavLink>
 
           <ul className={click ? "nav-menu active" : "nav-menu"}>

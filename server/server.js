@@ -5,7 +5,7 @@ require('dotenv').config();
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const nodemailer = require("nodemailer");
- 
+const sendEmail = require('./mailer')
 const app = express();
  
 // Middleware
@@ -212,8 +212,21 @@ app.post('/api/intern', async (req, res) => {
     const internData = req.body;
     const intern = new Intern(internData);
     await intern.save();
+    
     res.status(201).send(intern);
-  } catch (error) {
+console.log('jolly')
+    
+  const text = `
+    Welcome!
+    Your account has been created with the default userid: ${internData.userid} and username:${internData.name}
+    Please login to our website using this password
+  `;
+  const subject='Welcome to Newwave Training'
+  
+  sendEmail(internData.email,subject,text);
+}
+  
+  catch (error) {
     res.status(400).send(error);
   }
 });
@@ -461,4 +474,4 @@ app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
 // Start server
 
-
+module.exports=Intern;
