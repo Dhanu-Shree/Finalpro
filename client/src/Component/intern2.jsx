@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import { MdNotifications } from 'react-icons/md'; // Import icon from react-icons library
 import DividerWithCheckboxes from './DividerWithCheckboxes';
 import './intern2.css';
+import InternNavBar from './Navforintern.jsx';
 
 function MainComponent() {
   const [courses, setCourses] = useState([]);
@@ -69,24 +71,22 @@ function MainComponent() {
     });
   };
 
-  const highlightTrainingDates = ({ date }) => {
-    if (loading) return false;
-    const formattedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    return trainings.some(training => {
-      const trainingDate = new Date(training.trainingDate);
-      return formattedDate.getDate() === trainingDate.getDate() && formattedDate.getMonth() === trainingDate.getMonth();
-    });
+  const isWithinOneWeek = (startDate) => {
+    const oneWeekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
+    const difference = new Date(startDate) - new Date(); // Calculate difference with current date
+    return difference <= oneWeekInMilliseconds && difference >= 0; // Check if the difference is within one week and positive
   };
 
   return (
     <div className="app-container">
+      <InternNavBar />
+      <br></br>
       <div className="container-fluid">
         <div className='row'>
           <div className='col-md-4'>
-            <h1 className="page-heading">Calendars</h1>
             <div className="calendar-card">
               <div className="card-body">
-                <h2>Calendar (Courses)</h2>
+                <h2>Training Dates </h2>
                 <div className="react-calendar">
                   <Calendar
                     onChange={setSelectedDate}
@@ -96,7 +96,7 @@ function MainComponent() {
                     }
                   />
                 </div>
-                <h2>Calendar (Assessment Dates)</h2>
+                <h2>Assessment Dates</h2>
                 <div className="react-calendar">
                   <Calendar
                     onChange={setSelectedDate}
@@ -110,15 +110,19 @@ function MainComponent() {
             </div>
           </div>
           <div className='col-md-8'>
+            <br></br>
             <div className="display">
-              <h1>Training Details</h1>
               <div className="training-card">
                 <div className="training-list">
                   {trainings.map(training => (
                     <div className="training-CRUD" key={training._id}>
-                      <h2>{training.trainingName}</h2>
+                      <h2>
+                        {training.trainingName}
+                        {isWithinOneWeek(training.trainingstartDate) && (
+            <MdNotifications className="notification-icon" /> // Render the icon if assessment date is within one week
+          )}
+                      </h2>
                       <p><strong>Trainer:</strong> {training.trainerName}</p>
-                      
                       <p><strong>Start Date:</strong> {new Date(training.trainingstartDate).toLocaleDateString()}</p>
                       <p><strong>End Date:</strong> {new Date(training.trainingendDate).toLocaleDateString()}</p>
                       <DividerWithCheckboxes modules={training.modules}   trainingName={training.trainingName} />

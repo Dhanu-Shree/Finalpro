@@ -102,7 +102,7 @@ function CourseCard() {
           <div className='col-md-6 grid-item'>
             <div className="card">
               <div className="card-body">
-                <h2>Calendar (Courses)</h2>
+                <h2>Employee Training</h2>
                 <div className="react-calendar">
                   <Calendar
                     onChange={setSelectedDate}

@@ -1,0 +1,73 @@
+.scrollable-cards {
+    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-y: hidden; /* Hide vertical scrollbar */
+  }
+  
+  .box-wrapper {
+    display: flex; /* Arrange cards in a row */
+    flex-direction: row; /* Ensure cards are aligned horizontally */
+    white-space: nowrap; /* Prevent cards from wrapping to the next line */
+  }
+  
+  .card-name {
+    flex: 0 0 auto; /* Prevent cards from growing or shrinking */
+    width: 300px; /* Adjust the width of each card as needed */
+    margin-right: 10px; /* Add spacing between cards */
+  }
+  /* CourseCard.css */
+.card-name {
+    width: 350px;
+    margin: 50px   ;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    text-align: center; /* Center the title */
+  }
+  
+  .form-label {
+    font-weight: bold;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  textarea.form-control {
+    resize: vertical;
+  }
+  
+  .btn-primary {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  /* App.css */
+  .grid-item {
+  margin: 0 auto; /* Center the grid item horizontally */
+  max-width: 600px; /* Set max-width to prevent grid item from spanning the entire width */
+  }
+  
+  

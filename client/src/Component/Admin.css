@@ -1,6 +1,6 @@
 
 .navbar {
-    background-color: #1337ad;
+    background-color: #050d39;
     height: 80px;
     display: top;
   padding:0 !important;
@@ -22,7 +22,7 @@
   }
   
   .nav-logo {
-    color: #f5b921;
+    color: #f1f7f7;
     align-items: center;
     margin-left: 20px;
     cursor: pointer;
@@ -109,7 +109,7 @@
     }
   
     .nav-menu.active {
-      background: #1f5156;
+      background: #030730;
       left: 0px;
       opacity: 1;
       transition: all 0.5s ease;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Progress.css';
+import InternNavBar from './Navforintern.jsx';
 
 function ProgressTable() {
   const [progressData, setProgressData] = useState([]);
@@ -36,8 +37,10 @@ function ProgressTable() {
   }, [userId]);
 
   return (
+    <div><InternNavBar />
     <div className='progress-table-container'>
-      <h1>Progress {username}</h1>
+   
+      <h1>Ur Progress {username}</h1>
       <br />
       <br />
       <table className='progress-table'>
@@ -60,6 +63,7 @@ function ProgressTable() {
           ))}
         </tbody>
       </table>
+    </div>
     </div>
   );
 }

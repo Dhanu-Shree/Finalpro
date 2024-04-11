@@ -1,4 +1,3 @@
-
 import { NavLink } from "react-router-dom";
 import "./Admin.css";
 import {  HamburgetMenuClose, HamburgetMenuOpen } from "./Icons";
@@ -12,37 +11,40 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
-
-
-
 function InternNavBar() {
   const [click, setClick] = useState(false);
   const [open, setOpen] = useState(false);
   const [userDetails, setUserDetails] = useState(null); // State to store user details
   const name = localStorage.getItem("username");
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Replace these with your actual fetch calls
         const internResponse = await axios.get('http://localhost:5000/api/intern');
-        const internData = internResponse.data;
         const employeeResponse = await axios.get('http://localhost:5000/api/employee');
-        const employeeData = employeeResponse.data;
         const traineeResponse = await axios.get('http://localhost:5000/api/trainee');
-        const traineeData = traineeResponse.data;
 
-        const allUserData = [...internData, ...employeeData, ...traineeData];
+        const allUserData = [
+          ...internResponse.data,
+          ...employeeResponse.data,
+          ...traineeResponse.data
+        ];
 
         // Assuming these are fetched from localStorage
         const username = localStorage.getItem('userName');
         const userid = localStorage.getItem('userId');
-        // Assuming password is stored securely or not needed for fetching user details
-
+        
         // Find user details
         const userDetails = allUserData.find(user => user.id === userid && user.name === username);
         
         if (userDetails) {
-          setUserDetails(userDetails);
+          // Filter out MongoDB fields and store the rest in an array-like structure
+          const userDetailsArray = Object.entries(userDetails)
+            .filter(([key]) => key !== '_id' && key !== '__v')
+            .map(([key, value]) => ({ key, value }));
+
+          setUserDetails(userDetailsArray);
           setOpen(true); // Open the drawer
         } else {
           console.log('User not found');
@@ -55,72 +57,43 @@ function InternNavBar() {
     fetchData();
   }, []);
 
-  const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation" onClick={() => setOpen(false)}>
-      <List>
-      <ListItem disablePadding>
-  <ListItemButton>
-    <ListItemText primary="User Details" />
-  </ListItemButton>
-</ListItem>
-{userDetails &&
-  Object.entries(userDetails).map(([key, value]) => {
-    // Exclude keys like id, password, and __v
-    if (key !== '_id' && key !== 'password' && key !== '__v') {
-      return (
-        <ListItem key={key} disablePadding>
-          <ListItemButton>
-            {/* Apply styles based on key or value */}
-            <ListItemText primary={`${key}: ${value}`} style={{ color: key === 'name' ? 'blue' : 'inherit' }} />
-          </ListItemButton>
-        </ListItem>
-      );
-    }
-    return null; // Skip rendering for excluded keys
-  })
-}
-      </List>
-    </Box>
-  );
+ 
 
   const handleClick = () => setClick(!click);
-  const handleLogoutClick = () =>{
-    localStorage.clear()
-  }
+
+  const handleLogoutClick = () => {
+    localStorage.clear();
+  };
+
   return (
     <>
       <nav className="navbar">
         <div className="nav-container">
           <NavLink exact to="/admin" className="nav-logo">
             <span>WELCOME {name} </span>
-            {/* <i className="fas fa-code"></i> */}
-           
           </NavLink>
 
           <ul className={click ? "nav-menu active" : "nav-menu"}>
-          <li className="nav-item">
-            <NavLink
+            <li className="nav-item">
+              <NavLink
                 exact
                 to="/newuser"
                 activeClassName="active"
                 className="nav-links"
                 onClick={handleClick}
               >
-
-            CreateUser
-              
-              </NavLink></li>
+                CreateUser
+              </NavLink>
+            </li>
             <li className="nav-item">
-            <NavLink
+              <NavLink
                 exact
                 to="/thirdadmin"
                 activeClassName="active"
                 className="nav-links"
                 onClick={handleClick}
               >
-
-            Employee
-              
+                Employee
               </NavLink>
             </li>
             <li className="nav-item">
@@ -131,7 +104,7 @@ function InternNavBar() {
                 className="nav-links"
                 onClick={handleClick}
               >
-               Schedule Intern
+                Schedule Intern
               </NavLink>
             </li>
             <li className="nav-item">
@@ -142,7 +115,7 @@ function InternNavBar() {
                 className="nav-links"
                 onClick={handleClick}
               >
-             Progress
+                Progress
               </NavLink>
             </li>
             <li className="nav-item">
@@ -153,22 +126,11 @@ function InternNavBar() {
                 className="nav-links"
                 onClick={handleLogoutClick}
               >
-               Logout
+                Logout
               </NavLink>
             </li>
           </ul>
           <div className="nav-icon" onClick={handleClick}>
-            {/* <i className={click ? "fas fa-times" : "fas fa-bars"}></i> */}
-            <NavLink
-                exact
-                to="/contact"
-                activeClassName="active"
-                className="nav-links"
-                onClick={handleClick}
-              >
-                Logout
-              </NavLink>
-
             {click ? (
               <span className="icon">
                 <HamburgetMenuOpen />{" "}
@@ -181,7 +143,7 @@ function InternNavBar() {
           </div>
         </div>
       </nav>
-      
+   
     </>
   );
 }

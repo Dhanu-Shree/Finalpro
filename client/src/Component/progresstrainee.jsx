@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Progress.css';
+import TraineeNavbar from './Navfortrainee';
 
 function ProgressTable() {
   const [progressData, setProgressData] = useState([]);
@@ -37,6 +38,7 @@ function ProgressTable() {
 
   return (
     <div>
+      <TraineeNavbar />
       <h1>Progress</h1>
       <div className='progress-table-container'>
         <div className="search-container">

@@ -12,6 +12,9 @@ function MainComponent() {
   const [trainings, setTrainings] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [loading, setLoading] = useState(true);
+  const [courseCalendarDate, setCourseCalendarDate] = useState(new Date());
+  const [assessmentCalendarDate, setAssessmentCalendarDate] = useState(new Date());
+  const [trainingCalendarDate, setTrainingCalendarDate] = useState(new Date());
 
   useEffect(() => {
     fetchCourses();
@@ -42,10 +45,12 @@ function MainComponent() {
 
   const fetchTrainings = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/trainings');
-      setTrainings(response.data);
+      const response = await fetch('http://localhost:5000/employeetraining');
+      const data = await response.json();
+      console.log("Fetched courses:", data);
+      setCourses(data);
     } catch (error) {
-      console.error('Error fetching trainings:', error);
+      console.error('Error fetching courses:', error);
     } finally {
       setLoading(false);
     }
@@ -60,7 +65,6 @@ function MainComponent() {
       return formattedDate >= startDate && formattedDate <= endDate;
     });
   };
-
   const highlightAssessmentDates = ({ date }) => {
     if (loading) return false;
     const formattedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -69,13 +73,13 @@ function MainComponent() {
       return formattedDate.getDate() === d.getDate() && formattedDate.getMonth() === d.getMonth();
     });
   };
-
   const highlightTrainingDates = ({ date }) => {
-    if (loading) return false;
+    if (loading || !courses) return false;
     const formattedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    return trainings.some(training => {
-      const trainingDate = new Date(training.trainingDate);
-      return formattedDate.getDate() === trainingDate.getDate() && formattedDate.getMonth() === trainingDate.getMonth();
+    return courses.some(course => {
+      const startDate = new Date(course.startDate);
+      const endDate = new Date(course.endDate);
+      return formattedDate >= startDate && formattedDate <= endDate;
     });
   };
 
@@ -88,9 +92,9 @@ function MainComponent() {
             <h1 className="page-heading">Calendars</h1>
             <div className="scrollable-cards" style={{overflowX: 'auto', whiteSpace: 'nowrap'}}>
               {/* Course Calendar Card */}
-              <div className="card" style={{display: 'inline-block', marginRight: '10px'}}>
+              <div className="card-name" style={{display: 'inline-block', marginRight: '10px'}}>
                 <div className="card-body">
-                  <h2>Calendar (Courses)</h2>
+                  <h2>Intern Trainings</h2>
                   <div className="react-calendar">
                     <Calendar
                       onChange={setSelectedDate}
@@ -103,32 +107,36 @@ function MainComponent() {
                 </div>
               </div>
               {/* Assessment Dates Calendar Card */}
-              <div className="card" style={{display: 'inline-block', marginRight: '10px'}}>
+              <div className="card-name" style={{display: 'inline-block', marginRight: '10px'}}>
                 <div className="card-body">
-                  <h2>Calendar (Assessment Dates)</h2>
-                  <div className="react-calendar">
-                    <Calendar
-                      onChange={setSelectedDate}
-                      value={selectedDate}
-                      tileClassName={({ date, view }) =>
-                        view === 'month' && highlightAssessmentDates({ date }) ? 'highlight' : null
-                      }
-                    />
+                  <h2>Intern Assessments</h2>
+                 
+                     <div className="react-calendar">
+                     <Calendar
+                       onChange={setSelectedDate}
+                       value={selectedDate}
+                       tileClassName={({ date, view }) =>
+                         view === 'month' && highlightAssessmentDates({ date }) ? 'highlight' : null
+                       }
+                     />
+                    
                   </div>
                 </div>
               </div>
               {/* Training Dates Calendar Card */}
-              <div className="card" style={{display: 'inline-block'}}>
+              <div className="card-name" style={{display: 'inline-block'}}>
                 <div className="card-body">
-                  <h2>Calendar (Training Dates)</h2>
+                  <h2>Employee Training</h2>
                   <div className="react-calendar">
                     <Calendar
-                      onChange={setSelectedDate}
-                      value={selectedDate}
-                      tileClassName={({ date, view }) =>
-                        view === 'month' && highlightTrainingDates({ date }) ? 'highlight' : null
-                      }
-                    />
+           
+               onChange={setSelectedDate}
+               value={selectedDate}
+               tileClassName={({ date, view }) =>
+                 view === 'month' && highlightTrainingDates({ date }) ? 'highlight' : null
+               }
+             />
+                     
                   </div>
                 </div>
               </div>

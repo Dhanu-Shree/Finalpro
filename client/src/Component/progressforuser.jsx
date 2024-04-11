@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Progress.css';
+import NavBar from './Admin.js'
 
 function ProgressTable() {
   const [progressData, setProgressData] = useState([]);
@@ -44,7 +45,11 @@ function ProgressTable() {
     .map(userId => groupedProgressData[userId]);
 
   return (
-    <div><h1> Progress {username}</h1>
+     <div>
+       <NavBar />
+       <br></br>
+      <h1></h1>
+
     <div className='progress-table-container'>
       
       <div className="search-container">

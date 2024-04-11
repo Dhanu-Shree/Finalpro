@@ -11,7 +11,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import './Navforintern.css'
 
-function InternNavBar() {
+function EmpNavBar() {
 
   const username = localStorage.getItem('userName');
   const userid = localStorage.getItem('userId');
@@ -43,7 +43,7 @@ function InternNavBar() {
      
         const userDetails = allUserData.find(user => user.id === userid && user.name === username);
 
-        if (userDetails && role === 'trainee') {
+        if (userDetails && role === 'employee') {
           setUserDetails(userDetails);
           setOpen(true);
         } else {
@@ -106,6 +106,7 @@ function InternNavBar() {
   );
   
 
+
   const handleClick = () => setClick(!click);
 
   return (
@@ -123,17 +124,7 @@ function InternNavBar() {
                 {DrawerList}
               </Drawer>
             </li>
-            <li className="nav-item">
-              <NavLink
-                exact
-                to="/traineeprogress"
-                activeClassName="active"
-                className="nav-links"
-                onClick={handleClick}
-              >
-                Progress
-              </NavLink>
-            </li>
+           
            
             <li className="nav-item">
               <NavLink
@@ -164,4 +155,4 @@ function InternNavBar() {
   );
 }
 
-export default InternNavBar;
+export default EmpNavBar;

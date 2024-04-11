@@ -49,9 +49,10 @@ h1 {
   }
   
   .training-card {
-    height: 500px; /* Set a fixed height for the card */
+     /* Set a fixed height for the card */
     overflow-y: auto;
-    width: 150%;
+    width: 120%;
+    background-color: #f9f9f9;
      /* Enable vertical scrolling */
   }
   

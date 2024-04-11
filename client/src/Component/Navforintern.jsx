@@ -50,25 +50,57 @@ function InternNavBar() {
 
     fetchData();
   }, []);
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const formattedDate = date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+    return formattedDate;
+  };
 
   const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation" onClick={() => setOpen(false)}>
+    <Box sx={{ width: 250, textAlign: 'center' }} role="presentation" onClick={() => setOpen(false)}>
       <List>
-        <ListItem disablePadding>
+        <ListItem disablePadding sx={{ borderBottom: '1px solid #ccc' }}>
           <ListItemButton>
-            <ListItemText primary="User Details" />
+            <ListItemText primary="User Details" sx={{ color: 'purple' }} />
           </ListItemButton>
         </ListItem>
-        {userDetails && Object.entries(userDetails).map(([key, value]) => (
-          <ListItem key={key} disablePadding>
-            <ListItemButton>
-              <ListItemText primary={`${key}: ${value}`} />
-            </ListItemButton>
-          </ListItem>
-        ))}
+        {userDetails &&
+          Object.entries(userDetails).map(([key, value]) => {
+            // Exclude _id, __v, and password fields
+            if (key !== '_id' && key !== '__v' && key !== 'password') {
+              return (
+                <ListItem key={key} disablePadding sx={{ borderBottom: '1px solid #ccc' }}>
+                  <ListItemButton>
+                    <ListItemText
+                      primary={
+                        key === 'dob' ? (
+                          <>
+                            <span className="blue-text">{`${key}: `}</span>
+                            <span>{formatDate(value)}</span>
+                          </>
+                        ) : (
+                          <>
+                            <span className="blue-text">{`${key}: `}</span>
+                            <span>{value}</span>
+                          </>
+                        )
+                      }
+                    />
+                  </ListItemButton>
+                </ListItem>
+              );
+            }
+            return null; // Exclude these fields from rendering
+          })}
       </List>
     </Box>
   );
+  
+
 
   const handleClick = () => setClick(!click);
   const handleLogoutClick = () => {

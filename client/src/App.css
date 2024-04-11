@@ -7,6 +7,11 @@
   color: #105aa8;
 } */
 
+body {
+ /* For Safari */
+  background-color: rgba(177, 166, 166, 0.59);
+}
+
 .login-container {
   display: flex;
   justify-content: center;

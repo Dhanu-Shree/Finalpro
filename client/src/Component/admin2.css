@@ -2,22 +2,24 @@
   
   .calendar-card,
   .form-card {
-    border: 1px solid #ccc;
+    border: 1px solid #0f0202;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(206, 174, 174, 0.1);
+    box-shadow: 0 2px 4px rgba(23, 2, 2, 0.917);
     height: 520px; /* Set a fixed height */
-    overflow-y: auto; /* Make the content scrollable if it exceeds the height */
+    overflow-y: auto;
+    margin-top: 50px; /* Make the content scrollable if it exceeds the height */
   }
   
   .calendar-card {
     flex: 0 0 40%; /* 40% width */
-    margin-right: 20px; /* Space between the cards */
+    margin-left: 20px;
+    /* Space between the cards */
   }
   
   .form-card {
     flex: 0 0 60%; /* 60% width */
-    margin-left: 90px;
-    width: 75%; /* Add space on the left side */
+    margin-left: 110px;
+    width: 81%; /* Add space on the left side */
   }
   
   /* Optional: Apply styles for the cards' content */
@@ -31,11 +33,12 @@
     margin: 20px; /* Add space around the entire page */
   }
   .dum {
-    width: 300px;
+    width: 430px;
     padding: 20px;
-    border: 2px solid #ccc;
+    border: 2px solid #f5f5f5;
     border-radius: 8px;
     background-color: #f9f9f9;
+    display:center;
 }
 h1 {
     text-align: center; /* Align the text center */

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import axios from 'axios';
-import './admin2.css'; // Import your CSS file
+import './admin2.css';
+import NavBar from './Admin.js';
 
 function MainComponent() {
   const [courses, setCourses] = useState([]);
@@ -15,10 +16,9 @@ function MainComponent() {
   const [trainingendDate, setTrainingendDate] = useState('');
   const [modules, setModules] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [trainings, setTrainings] = useState([]); // Define setTrainings
+  const [trainings, setTrainings] = useState([]);
 
   useEffect(() => {
-    // Fetch courses and assessment dates from the backend
     fetchCourses();
     fetchAssessmentDates();
   }, []);
@@ -57,7 +57,7 @@ function MainComponent() {
       return formattedDate >= startDate && formattedDate <= endDate;
     });
   };
- 
+
   const highlightAssessmentDates = ({ date }) => {
     if (loading) return false;
     const formattedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -79,15 +79,19 @@ function MainComponent() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log('Form submitted'); // Check if this log is printed
     try {
-      const response = await axios.post('http://localhost:5000/trainings', {
+      const formData = {
         trainerName,
         trainerEmail,
         trainingName,
         trainingstartDate,
         trainingendDate,
         modules
-      });
+      };
+      console.log('Form data to be sent:', formData); // Log form data before sending
+
+      const response = await axios.post('http://localhost:5000/trainings', formData);
       console.log('Form data sent successfully:', response.data);
       setTrainerName('');
       setTrainerEmail('');
@@ -104,7 +108,6 @@ function MainComponent() {
   const fetchTrainings = async () => {
     try {
       const response = await axios.get('http://localhost:5000/trainings');
-      // Update trainings state with the fetched data
       setTrainings(response.data);
     } catch (error) {
       console.error('Error fetching trainings:', error);
@@ -113,14 +116,15 @@ function MainComponent() {
 
   return (
     <div className="app-container">
+      <NavBar />
       <div className="container-fluid">
         <div className='row'>
           <div className='col-md-4'>
-            <h1 className="page-heading">Calendars</h1>
+            <h1 className="page-heading"></h1>
             <div className="calendar-card">
               <div className="card-body">
                 <div className='cal1'>
-                  <h2>Calendar (Courses)</h2>
+                  <h2>Intern Training</h2>
                   <div className="react-calendar">
                     <Calendar
                       onChange={setSelectedDate}
@@ -131,7 +135,7 @@ function MainComponent() {
                     />
                   </div>
                 </div>
-                <h2>Calendar (Assessment Dates)</h2>
+                <h2>Assessment Dates</h2>
                 <div className="react-calendar">
                   <Calendar
                     onChange={setSelectedDate}
@@ -145,7 +149,7 @@ function MainComponent() {
             </div>
           </div>
           <div className='col-md-8'>
-            <h1 className="page-heading">Training Assignment</h1>
+            <h1 className="page-heading"><h3></h3></h1>
             <div className="form-card">
               <div className="card-body">
                 <form className='dum' onSubmit={handleSubmit}>
@@ -175,6 +179,7 @@ function MainComponent() {
                   <br />
                   <label>
                     Modules:
+                    <br/><br/>
                     {modules.map((module, index) => (
                       <input
                         key={index}

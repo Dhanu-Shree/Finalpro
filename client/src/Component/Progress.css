@@ -1,23 +1,28 @@
 .progress-table-container {
-    width: 60%;
+    width: 70%;
     margin: auto;
-    height:100%
+    height:100%;
+    border:black;
+    box-shadow: 0 2px 4px rgba(23, 2, 2, 0.1);
   }
   
   .progress-table {
     width: 100%;
     height:100%;
+    border: 1px solid #050211;
     border-collapse: collapse;
+    box-shadow: 0 2px 4px rgba(23, 2, 2, 0.1);
   }
   
   .progress-table th, .progress-table td {
-    border: 1px solid #b4a9db;
+    border: 1px solid #050211;
+    box-shadow: 0 2px 4px rgba(23, 2, 2, 0.1);
     padding: 8px;
     text-align: left;
   }
   
   .progress-table th {
-    background-color: #bba2cf;
+    background-color: #3845d1;
   }
   .progress-table-container {
     max-height: 500px; /* Set the maximum height of the outer table container */

@@ -28,7 +28,7 @@ function DividerWithCheckboxes({ modules ,trainingName}) {
   const sendProgressDataToBackend = async (trainingName, completedModules, progressPercentage) => {
     try {
       const userId = localStorage.getItem('userId');
-      const username = localStorage.getItem('username');
+      const username = localStorage.getItem('userName');
 
       await axios.post('http://localhost:5000/user/progress', {
         userId,

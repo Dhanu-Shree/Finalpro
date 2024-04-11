@@ -20,6 +20,7 @@ import Employee from './Component/Employee'
 import Progressuser from './Component/progressforuser';
 import Progresstraining from './Component/dumi';
 import ProgressforTrainee from './Component/progresstrainee';
+import Feedback from './Component/feedback';
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
         <Route path='admin4' element={<Progressuser/>}/>
         <Route path='pintern' element={<Progresstraining/>}/>
         <Route path='traineeprogress' element={<ProgressforTrainee/>}/>
+        <Route path='feedback' element ={<Feedback/>}/>
     </Routes>
     </BrowserRouter>
   );

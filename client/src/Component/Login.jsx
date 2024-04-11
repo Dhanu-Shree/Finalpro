@@ -53,6 +53,9 @@ const Login = () => {
           case 'intern':
             navigate('/intern');
             break;
+          case 'employee':
+            navigate('/employee');
+            break;
           default:
             navigate('/');
             break;
@@ -103,11 +106,13 @@ const Login = () => {
           <option value="intern">Intern</option>
           <option value='employee'>Employee</option>
         </select>
-
+<br>
+</br>
+<br></br>
         <div className="button-container">
           <button type="submit" onClick={handleClick}>Login</button>
         </div>
-        <h6> Welcome</h6>
+        <h3 style={{ color: 'blue', textAlign: 'center' }}>New Wave Training</h3>
       </form>
     </div>
   );

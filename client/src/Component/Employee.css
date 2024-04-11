@@ -14,17 +14,18 @@
     max-width: 400px; /* Adjust as needed */
     border: 1px solid #8f3131;
     border-radius: 8px;
-    background-color: rgb(92, 215, 231);
+    background-color:  #060c7f81;
   }
   
   /* Styles for the highlighted dates */
   .highlight {
-    background-color: #c21c5c; /* Yellow color for highlighted dates */
+    background-color: #151602ae; /* Yellow color for highlighted dates */
     color: #d5dfc3; /* Black text color */
   }
   .card-body{
-    background-color: rgb(243, 243, 243);
+    /* background-color: rgba(238, 238, 238, 0.917); */
     padding: 40px;
+   
   }
   
   
@@ -59,13 +60,13 @@
   body {
     margin: 20px; /* Add space around the entire page */
   }
-  .dum {
-    width: 500px;
+  /* .dum {
+    width: 400px;
     padding: 20px;
     border: 2px solid #ccc;
     border-radius: 8px;
     background-color: #f9f9f9;
-}
+} */
 h1 {
     text-align: center; /* Align the text center */
     color: blue; /* Set the text color to blue */

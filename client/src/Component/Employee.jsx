@@ -2,11 +2,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Coursecard.css';
-import NavBar from './Admin.js';
+import NavBar from './Navforemp.jsx';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './Calendar.css';
 import './Employee.css';
+import { MdNotifications } from 'react-icons/md';
 
 
 function CourseCard() {
@@ -65,7 +66,11 @@ function CourseCard() {
       return formattedDate >= startDate && formattedDate <= endDate;
     });
   };
-
+  const isWithinOneWeek = (startDate) => {
+    const oneWeekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
+    const difference = new Date(startDate) - new Date(); // Calculate difference with current date
+    return difference <= oneWeekInMilliseconds && difference >= 0; // Check if the difference is within one week and positive
+  };
  
   return (
     <div className="app-container">
@@ -79,13 +84,20 @@ function CourseCard() {
               <div className="training-card-css">
                 <div className="training-list">
                   {courses.map(training => (
+                    
                     <div className="training-CRUD" key={training._id}>
                       <h2>{training.Training}</h2>
-         
+                      {isWithinOneWeek(training.startDate, training.endDate) && (
+                      <MdNotifications className="notification-icon" /> // Render the icon if within one week
+                    )}
+                      
                       <p><strong>Trainer:</strong> {training.Trainer}</p>
-                      <p><strong>Study Material:</strong> {training.studymaterial}</p>
-                      <p><strong>Start Date:</strong> {training.startDate}</p>
-                      <p><strong>End Date:</strong> {training.endDate}</p>
+                      <p><strong>Study Material:</strong> <a href={training.studymaterial}>{training.studymaterial}</a></p>
+                      
+                     
+
+                      <p><strong>Start Date :</strong>{new Date(training.startDate).toLocaleDateString()}</p>
+                      <p><strong>End Date :</strong> {new Date(training.endDate).toLocaleDateString()}</p>
                       {/* Add additional details as needed */}
                     </div>
                   ))}

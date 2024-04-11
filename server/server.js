@@ -49,34 +49,6 @@ app.post('/usercreate', async (req, res) => {
     const user = new User({ userid, username, email , password, state, role, dob });
     await user.save();
 
-    // Send welcome email
-    const transporter = nodemailer.createTransport({
-      host: "dhanushree.g2020cce@sece.ac.in", // Update with your SMTP server host
-      port: 587,
-      secure: false,
-      auth: {
-        user: "dhanushree.g2020cce@sece.ac.in", // Update with your email address
-        pass: "sececce2020", // Update with your email password
-      },
-      service : 'Outlook'
-    });
-    
-    const mailOptions = {
-      from: "dhanushree.g2020cce@sece.ac.in", // Update with your email address
-      to: email,
-      subject: "Welcome to Our Platform",
-      html: `Hello ${username}, your userid is ${userid} and password is ${password}.`,
-    };
-
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.log("Error sending email:", error);
-        res.status(500).send("Internal server error");
-      } else {
-        console.log("Email sent:", info.response);
-        res.status(200).send("User created and email sent successfully");
-      }
-    });
   } catch (err) {
     console.error('Error creating user:', err);
     res.status(400).send(err);
@@ -122,7 +94,6 @@ app.get('/api/courses', async (req, res) => {
     res.status(500).send('Error fetching courses');
   }
 });
-
 
 const assessSchema = new mongoose.Schema({
   assessmentName: String,
@@ -218,7 +189,7 @@ console.log('jolly')
     
   const text = `
     Welcome!
-    Your account has been created with the default userid: ${internData.userid} and username:${internData.name}
+    Your account has been created with the default userid: ${internData.id} and username:${internData.name}
     Please login to our website using this password
   `;
   const subject='Welcome to Newwave Training'
@@ -241,6 +212,7 @@ app.get('/api/intern', async (req, res) => {
     res.send(interns);
     console.log(interns);
     console.log('fetched',interns);
+    
   } catch (error) {
     // If an error occurs, send 500 Internal Server Error status
     res.status(500).json({ error: 'Internal Server Error' });
@@ -256,6 +228,14 @@ app.post('/api/employee', async (req, res) => {
     const employee = new Employee(employeeData);
     await employee.save();
     res.status(201).send(employee);
+    const text = `
+    Welcome!
+    Your account has been created with the default userid: ${employeeData.id} and username:${employeeData.name}
+    Please login to our website using this password
+  `;
+  const subject='Welcome to Newwave Training'
+  
+  sendEmail(employeeData.email,subject,text);
   } catch (error) {
     res.status(400).send(error);
   }
@@ -284,6 +264,14 @@ app.post('/api/trainee', async (req, res) => {
     const trainee = new Trainee(traineeData);
     await trainee.save();
     res.status(201).send(trainee);
+    const text = `
+    Welcome!
+    Your account has been created with the default userid: ${traineeData.id} and username:${traineeData.name}
+    Please login to our website using this password
+  `;
+  const subject='Welcome to Newwave Training'
+  
+  sendEmail(traineeData.email,subject,text);
   } catch (error) {
     res.status(400).send(error);
   }
@@ -328,14 +316,22 @@ app.post('/trainings', async (req, res) => {
       trainingendDate,
       modules
     });
-    console.log(training)
+    console.log('hi')
     await training.save();
-    console.log(training)
-    res.send(training);
-  } catch (error) {
-    res.status(500).send(error);
-  }
+
+   const text=` Welcome!
+    Your account has been created with the default userid: ${employeeData.id} and username:${employeeData.name}
+    Please login to our website using this password`;
+  const subject='Welcome to Newwave Training'
+
+
+  sendEmail(training.trainerEmail,subject,text);
+} catch (error) {
+  res.status(400).send(error);
+}
 });
+
+
 app.get('/trainings', async (req, res) => {
   try {
     const trainings = await Training.find();
