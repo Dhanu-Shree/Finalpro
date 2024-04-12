@@ -14,7 +14,7 @@
     max-width: 400px; /* Adjust as needed */
     border: 1px solid #8f3131;
     border-radius: 8px;
-    background-color:  #060c7f81;
+    background-color: rgba(39, 79, 160, 0.589);
   }
   
   /* Styles for the highlighted dates */

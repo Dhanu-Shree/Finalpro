@@ -48,7 +48,7 @@ function MainComponent() {
       const response = await fetch('http://localhost:5000/employeetraining');
       const data = await response.json();
       console.log("Fetched courses:", data);
-      setCourses(data);
+      setTrainings(data);
     } catch (error) {
       console.error('Error fetching courses:', error);
     } finally {
@@ -57,7 +57,7 @@ function MainComponent() {
   };
 
   const highlightCourseDates = ({ date }) => {
-    if (loading || !courses) return false;
+    if (loading ||!courses) return false;
     const formattedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     return courses.some(course => {
       const startDate = new Date(course.startDate);
@@ -73,15 +73,17 @@ function MainComponent() {
       return formattedDate.getDate() === d.getDate() && formattedDate.getMonth() === d.getMonth();
     });
   };
-  const highlightTrainingDates = ({ date }) => {
-    if (loading || !courses) return false;
-    const formattedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    return courses.some(course => {
-      const startDate = new Date(course.startDate);
-      const endDate = new Date(course.endDate);
-      return formattedDate >= startDate && formattedDate <= endDate;
+ 
+    const highlightTrainingDates = ({ date }) => {
+      if (loading || !trainings) return false;
+      const formattedDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      return trainings.some(training => {
+        const startDate = new Date(training.startDate);
+        const endDate = new Date(training.endDate);
+        return formattedDate >= startDate && formattedDate <= endDate;
     });
   };
+
 
   return (
     <div className="app-container">
@@ -147,5 +149,6 @@ function MainComponent() {
     </div>
   );
 }
+
 
 export default MainComponent;

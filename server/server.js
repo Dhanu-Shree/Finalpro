@@ -465,6 +465,38 @@ app.get('/user/progress', async (req, res) => {
   }
 });
 
+// Assuming you have already set up Express and configured routes
+
+const feedbackSchema = new mongoose.Schema({
+  trainerId:String,
+  userId:String,
+  userName:String,
+  trainerName: String,
+  overallRating: Number,
+  contentCoverageRating: Number,
+  interactionRating: Number,
+  organizationRating: Number,
+  usefulnessRating: Number,
+  feedbackMessage: String,
+});
+
+// Create a model based on the schema
+const Feedback = mongoose.model('Feedback', feedbackSchema);
+
+// Routes
+app.post('/feedback', async (req, res) => {
+  try {
+    const feedback = new Feedback(req.body);
+    await feedback.save();
+    res.status(201).json({ message: 'Feedback submitted successfully' });
+  } catch (error) {
+    console.error('Error submitting feedback:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 

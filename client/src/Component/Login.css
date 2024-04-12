@@ -1,0 +1,12 @@
+
+  
+  .input-container input,
+  .input-container select {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #140101;
+    border-radius: 5px;
+    box-sizing: border-box;
+   /* Add this line to remove the scrollbar */
+  }
+  
