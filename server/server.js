@@ -320,8 +320,8 @@ app.post('/trainings', async (req, res) => {
     await training.save();
 
    const text=` Welcome!
-    Your account has been created with the default userid: ${employeeData.id} and username:${employeeData.name}
-    Please login to our website using this password`;
+    Your calendars are blocked for the training program for interns.. You has been
+    allocated for ${training.trainingName} from ${training.trainingstartDate} to ${training.trainingendDate} !!`;
   const subject='Welcome to Newwave Training'
 
 

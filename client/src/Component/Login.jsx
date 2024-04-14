@@ -65,7 +65,7 @@ const Login = () => {
         }
       } else {
         // Display a toast message for invalid login
-        toast.error("Unsuccessful login!");
+        toast.error("Invalid!");
         console.log('Invalid login credentials');
       }
     } catch (error) {
