@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import { MdNotifications } from 'react-icons/md'; // Import icon from react-icons library
 import DividerWithCheckboxes from './DividerWithCheckboxes';
 import './intern2.css';
 import InternNavBar from './Navforintern.jsx';
@@ -44,7 +43,8 @@ function MainComponent() {
   const fetchTrainings = async () => {
     try {
       const response = await axios.get('http://localhost:5000/trainings');
-      setTrainings(response.data);
+      const sortedTrainings = response.data.sort((a, b) => new Date(a.trainingstartDate) - new Date(b.trainingstartDate));
+      setTrainings(sortedTrainings);
     } catch (error) {
       console.error('Error fetching trainings:', error);
     } finally {
@@ -116,11 +116,8 @@ function MainComponent() {
                 <div className="training-list">
                   {trainings.map(training => (
                     <div className="training-CRUD" key={training._id}>
-                      <h2>
+                      <h2 className={new Date(training.trainingendDate) < new Date() ? 'strikethrough' : ''}>
                         {training.trainingName}
-                        {isWithinOneWeek(training.trainingstartDate) && (
-            <MdNotifications className="notification-icon" /> // Render the icon if assessment date is within one week
-          )}
                       </h2>
                       <p><strong>Trainer:</strong> {training.trainerName}</p>
                       <p><strong>Start Date:</strong> {new Date(training.trainingstartDate).toLocaleDateString()}</p>

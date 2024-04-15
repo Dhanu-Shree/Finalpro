@@ -13,19 +13,17 @@ function DividerWithCheckboxes({ modules, trainingName }) {
         const userId = localStorage.getItem('userId');
         const username = localStorage.getItem('userName');
 
-        // Fetch progress data based on userId and username
-        const response = await axios.get(`http://localhost:5000/user/progress?userId=${userId}&username=${username}`);
+        // Fetch all progress data
+        const response = await axios.get('http://localhost:5000/user/progress');
         const progressData = response.data;
 
-        if (progressData && progressData.length > 0) {
-          // Find progress for the current trainingName
-          const currentProgress = progressData.find(progress => progress.trainingName === trainingName);
+        // Find progress data for the current user and trainingName
+        const userProgress = progressData.find(progress => progress.userId === userId && progress.username === username && progress.trainingName === trainingName);
 
-          if (currentProgress) {
-            // Set completed modules and progress percentage
-            setCompletedModules(currentProgress.completedModules.map(module => parseInt(module)));
-            setProgressPercentage(currentProgress.progress);
-          }
+        if (userProgress) {
+          // Set completed modules and progress percentage
+          setCompletedModules(userProgress.completedModules.map(module => parseInt(module)));
+          setProgressPercentage(userProgress.progress);
         }
       } catch (error) {
         console.error('Error fetching progress data:', error);

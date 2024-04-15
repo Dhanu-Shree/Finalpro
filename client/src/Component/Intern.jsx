@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import InternNavBar from './Navforintern.jsx';
-import { MdNotifications } from 'react-icons/md'; // Import icon from react-icons library
 import './Intern.css';
 
 function Intern() {
@@ -16,7 +15,8 @@ function Intern() {
   const fetchCourses = async () => {
     try {
       const response = await axios.get('http://localhost:5000/api/courses');
-      setCourses(response.data);
+      const sortedCourses = response.data.sort((a, b) => new Date(a.startDate) - new Date(b.startDate));
+      setCourses(sortedCourses);
     } catch (error) {
       console.error('Error fetching courses:', error);
     }
@@ -25,20 +25,30 @@ function Intern() {
   const fetchAssessments = async () => {
     try {
       const response = await axios.get('http://localhost:5000/assessment');
-      setAssessments(response.data);
+      const sortedAssessments = response.data.sort((a, b) => new Date(a.dates) - new Date(b.dates));
+      setAssessments(sortedAssessments);
     } catch (error) {
       console.error('Error fetching assessments:', error);
     }
   };
 
-  // Function to check if the difference between two dates is within one week
- // Function to check if the difference between start date and current date is within one week
-const isWithinOneWeek = (startDate) => {
-    const oneWeekInMilliseconds = 7 * 24 * 60 * 60 * 1000;
-    const difference = new Date(startDate) - new Date(); // Calculate difference with current date
-    return difference <= oneWeekInMilliseconds && difference >= 0; // Check if the difference is within one week and positive
+  const isPastDate = (date) => {
+    return new Date(date) < new Date();
   };
-  
+
+  const renderCourseName = (course) => {
+    if (isPastDate(course.startDate)) {
+      return <del>{course.Training}</del>;
+    }
+    return course.Training;
+  };
+
+  const renderAssessmentName = (assessment) => {
+    if (isPastDate(assessment.dates)) {
+      return <del>{assessment.assessmentName}</del>;
+    }
+    return assessment.assessmentName;
+  };
 
   return (
     <div className="app-container">
@@ -49,12 +59,9 @@ const isWithinOneWeek = (startDate) => {
             <h2 className="cerd-titles">Courses</h2>
             <div className="cerd-body scrollable-content">
               {courses.map((course) => (
-                <div key={course._id} className="course-item">
+                <div key={course._id} className={`course-item ${isPastDate(course.endDate) ? 'complete' : ''}`}>
                   <h5 className="cerd-title">
-                    {course.Training}<br></br>
-                    {isWithinOneWeek(course.startDate, course.endDate) && (
-                      <MdNotifications className="notification-icon" /> // Render the icon if within one week
-                    )}
+                    {renderCourseName(course)}
                   </h5>
                   <p>Trainer: {course.Trainer}</p>
                   <p>
@@ -67,25 +74,21 @@ const isWithinOneWeek = (startDate) => {
             </div>
           </div>
           <div className="cerd">
-  <h2 className="cerd-titles">Assessments</h2>
-  <div className="cerd-body scrollable-content">
-    {assessments.map((assessment) => (
-      <div key={assessment._id} className="assessment-item">
-        <h5 className="cerd-title">
-          {assessment.assessmentName}
-          {isWithinOneWeek(assessment.dates) && (
-            <MdNotifications className="notification-icon" /> // Render the icon if assessment date is within one week
-          )}
-        </h5>
-        <p>Links: <a href={assessment.links}></a></p>
-        <p>Start Time: {assessment.startTime}</p>
-        <p>End Time: {assessment.endTime}</p>
-        <p>Date of Assessment: {new Date(assessment.dates).toLocaleDateString()}</p>
-      </div>
-    ))}
-  </div>
-</div>
-
+            <h2 className="cerd-titles">Assessments</h2>
+            <div className="cerd-body scrollable-content">
+              {assessments.map((assessment) => (
+                <div key={assessment._id} className={`assessment-item ${isPastDate(assessment.dates) ? 'complete' : ''}`}>
+                  <h5 className="cerd-title">
+                    {renderAssessmentName(assessment)}
+                  </h5>
+                  <p>Links: <a href={assessment.links}></a></p>
+                  <p>Start Time: {assessment.startTime}</p>
+                  <p>End Time: {assessment.endTime}</p>
+                  <p>Date of Assessment: {new Date(assessment.dates).toLocaleDateString()}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
