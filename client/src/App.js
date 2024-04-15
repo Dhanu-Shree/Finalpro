@@ -21,6 +21,8 @@ import Progressuser from './Component/progressforuser';
 import Progresstraining from './Component/dumi';
 import ProgressforTrainee from './Component/progresstrainee';
 import Feedback from './Component/feedback';
+import Moduledisplay from './Component/dun';
+import 'react-toastify/dist/ReactToastify.css'; 
 
 
 function App() {
@@ -32,7 +34,7 @@ function App() {
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/intern" element={<InternPage />} />
         <Route path="/trainee" element={<TraineePage />} />
-        <Route path="/coursecard" element={<CourseCard />} />
+        <Route path="/adminmain" element={<CourseCard />} />
         <Route path='/nextpage' element={<Calendars />}/>
         {/* <Route path='/popup' element={<Popup />}/> */}
         <Route path='/module' element={<Module/>}/>
@@ -47,6 +49,7 @@ function App() {
         <Route path='pintern' element={<Progresstraining/>}/>
         <Route path='traineeprogress' element={<ProgressforTrainee/>}/>
         <Route path='feedback' element ={<Feedback/>}/>
+        <Route path='md' element={<Moduledisplay/>}/>
     </Routes>
     </BrowserRouter>
   );

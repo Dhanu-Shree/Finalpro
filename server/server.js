@@ -181,11 +181,14 @@ const Trainee = mongoose.model('Trainees', TraineeSchema);
 app.post('/api/intern', async (req, res) => {
   try {
     const internData = req.body;
+    const check = await Intern.findOne({ id:internData.id });
+    if (check) {
+      return res.status(400).json({ error: 'User already exists!' });    
+    }
     const intern = new Intern(internData);
-    await intern.save();
+   await intern.save();
     
     res.status(201).send(intern);
-console.log('jolly')
     
   const text = `
     Welcome!

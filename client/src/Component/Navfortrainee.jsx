@@ -106,7 +106,9 @@ function InternNavBar() {
   );
   
 
-  const handleClick = () => setClick(!click);
+  const handleClick = () => {
+    setClick(!click);
+    setOpen(true);}
 
   return (
     <>
@@ -118,7 +120,7 @@ function InternNavBar() {
 
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
-              <Button onClick={() => setOpen(true)} style={{ color: 'white' }}>Profile</Button>
+            <Button onClick={handleClick} style={{ color: 'white' }}>Profile</Button>
               <Drawer open={open} onClose={() => setOpen(false)}>
                 {DrawerList}
               </Drawer>

@@ -39,7 +39,6 @@ function InternNavBar() {
 
         if (userDetails && role === 'intern') {
           setUserDetails(userDetails);
-          setOpen(true);
         } else {
           console.log('User not found or not an intern');
         }
@@ -63,46 +62,51 @@ function InternNavBar() {
   const DrawerList = (
     <Box sx={{ width: 250, textAlign: 'center' }} role="presentation" onClick={() => setOpen(false)}>
       <List>
-        <ListItem disablePadding sx={{ borderBottom: '1px solid #ccc' }}>
-          <ListItemButton>
-            <ListItemText primary="User Details" sx={{ color: 'purple' }} />
-          </ListItemButton>
-        </ListItem>
-        {userDetails &&
-          Object.entries(userDetails).map(([key, value]) => {
-            // Exclude _id, __v, and password fields
-            if (key !== '_id' && key !== '__v' && key !== 'password') {
-              return (
-                <ListItem key={key} disablePadding sx={{ borderBottom: '1px solid #ccc' }}>
-                  <ListItemButton>
-                    <ListItemText
-                      primary={
-                        key === 'dob' ? (
-                          <>
-                            <span className="blue-text">{`${key}: `}</span>
-                            <span>{formatDate(value)}</span>
-                          </>
-                        ) : (
-                          <>
-                            <span className="blue-text">{`${key}: `}</span>
-                            <span>{value}</span>
-                          </>
-                        )
-                      }
-                    />
-                  </ListItemButton>
-                </ListItem>
-              );
-            }
-            return null; // Exclude these fields from rendering
-          })}
+        {userDetails && (
+          <>
+            <ListItem disablePadding sx={{ borderBottom: '1px solid #ccc' }}>
+              <ListItemButton>
+                <ListItemText primary="User Details" sx={{ color: 'purple' }} />
+              </ListItemButton>
+            </ListItem>
+            {Object.entries(userDetails).map(([key, value]) => {
+              // Exclude _id, __v, and password fields
+              if (key !== '_id' && key !== '__v' && key !== 'password') {
+                return (
+                  <ListItem key={key} disablePadding sx={{ borderBottom: '1px solid #ccc' }}>
+                    <ListItemButton>
+                      <ListItemText
+                        primary={
+                          key === 'dob' ? (
+                            <>
+                              <span className="blue-text">{`${key}: `}</span>
+                              <span>{formatDate(value)}</span>
+                            </>
+                          ) : (
+                            <>
+                              <span className="blue-text">{`${key}: `}</span>
+                              <span>{value}</span>
+                            </>
+                          )
+                        }
+                      />
+                    </ListItemButton>
+                  </ListItem>
+                );
+              }
+              return null; // Exclude these fields from rendering
+            })}
+          </>
+        )}
       </List>
     </Box>
   );
+
+  const handleClick = () => {
+    setClick(!click);
+    setOpen(true); // Open the drawer when "Profile" button is clicked
+  };
   
-
-
-  const handleClick = () => setClick(!click);
   const handleLogoutClick = () => {
     localStorage.clear();
   };
@@ -117,7 +121,7 @@ function InternNavBar() {
 
           <ul className={click ? "nav-menu active" : "nav-menu"}>
             <li className="nav-item">
-              <Button onClick={() => setOpen(true)} style={{ color: 'white' }}>Profile</Button>
+              <Button onClick={handleClick} style={{ color: 'white' }}>Profile</Button>
               <Drawer open={open} onClose={() => setOpen(false)}>
                 {DrawerList}
               </Drawer>
@@ -128,7 +132,10 @@ function InternNavBar() {
                 to="/intern2"
                 activeClassName="active"
                 className="nav-links"
-                onClick={handleClick}
+                onClick={() => {
+                  setClick(false);
+                  setOpen(false);
+                }}
               >
                 Modules & Events
               </NavLink>
@@ -139,7 +146,10 @@ function InternNavBar() {
                 to="/progress"
                 activeClassName="active"
                 className="nav-links"
-                onClick={handleClick}
+                onClick={() => {
+                  setClick(false);
+                  setOpen(false);
+                }}
               >
                 Progress
               </NavLink>
@@ -156,7 +166,7 @@ function InternNavBar() {
               </NavLink>
             </li>
           </ul>
-          <div className="nav-icon" onClick={handleClick}>
+          <div className="nav-icon" onClick={() => setClick(!click)}>
             {click ? (
               <span className="icon">
                 <HamburgetMenuOpen />{" "}

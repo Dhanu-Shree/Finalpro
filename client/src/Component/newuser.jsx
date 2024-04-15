@@ -10,7 +10,9 @@ import './newuser.css';
 import NavBar from './Admin.js';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import 'react-toastify/dist/ReactToastify.css'; 
 
+import { toast, ToastContainer } from 'react-toastify';
 const style = {
   position: 'absolute',
   top: '50%',
@@ -68,7 +70,9 @@ function BasicModal() {
       console.log(res.data);
       handleClose();
     } catch (error) {
-      console.error(error);
+      if(error.response.status === 400)
+      toast.error(error.response.data.error)
+      console.error("singer",error);
     }
   };
 
@@ -83,6 +87,17 @@ function BasicModal() {
   return (
     <div>
       <NavBar />
+      <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light" />
       <div className="center">
         <div className="cardsss">
           <Card>

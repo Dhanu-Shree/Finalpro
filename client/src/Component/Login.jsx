@@ -48,7 +48,7 @@ const Login = () => {
         // Navigate to the respective page based on the selected role
         switch (role) {
           case 'admin':
-            navigate('/admin');
+            navigate('/adminmain');
             break;
           case 'trainee':
             navigate('/trainee');
@@ -76,7 +76,17 @@ const Login = () => {
   return (
     <div className="createuser-container">
       {/* Include ToastContainer at the top level of your application */}
-      <ToastContainer />
+      <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light" />
 
       <form className="form-container">
         <h2>Login</h2>

@@ -1,12 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { List, ListItem, ListItemText, Divider, Checkbox, LinearProgress } from '@mui/material';
 import axios from 'axios';
 
-function DividerWithCheckboxes({ modules ,trainingName}) {
+function DividerWithCheckboxes({ modules, trainingName }) {
   const [completedModules, setCompletedModules] = useState([]);
+  const [progressPercentage, setProgressPercentage] = useState(0);
+  const [loading, setLoading] = useState(true);
 
-  const handleCheckboxToggle = (index,trainingName) => {
-    console.log(trainingName)
+  useEffect(() => {
+    async function fetchProgressData() {
+      try {
+        const userId = localStorage.getItem('userId');
+        const username = localStorage.getItem('userName');
+
+        // Fetch progress data based on userId and username
+        const response = await axios.get(`http://localhost:5000/user/progress?userId=${userId}&username=${username}`);
+        const progressData = response.data;
+
+        if (progressData && progressData.length > 0) {
+          // Find progress for the current trainingName
+          const currentProgress = progressData.find(progress => progress.trainingName === trainingName);
+
+          if (currentProgress) {
+            // Set completed modules and progress percentage
+            setCompletedModules(currentProgress.completedModules.map(module => parseInt(module)));
+            setProgressPercentage(currentProgress.progress);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching progress data:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProgressData();
+  }, [trainingName]);
+
+  const handleCheckboxToggle = async (index) => {
     const currentIndex = completedModules.indexOf(index);
     const newCompletedModules = [...completedModules];
 
@@ -19,10 +50,11 @@ function DividerWithCheckboxes({ modules ,trainingName}) {
     setCompletedModules(newCompletedModules);
 
     // Calculate progress percentage
-    const progressPercentage = Math.round((newCompletedModules.length / modules.length) * 100);
+    const newProgressPercentage = Math.round((newCompletedModules.length / modules.length) * 100);
+    setProgressPercentage(newProgressPercentage);
 
     // Send progress data to the backend
-    sendProgressDataToBackend(trainingName, newCompletedModules, progressPercentage);
+    sendProgressDataToBackend(trainingName, newCompletedModules, newProgressPercentage);
   };
 
   const sendProgressDataToBackend = async (trainingName, completedModules, progressPercentage) => {
@@ -37,11 +69,15 @@ function DividerWithCheckboxes({ modules ,trainingName}) {
         completedModules,
         progress: progressPercentage
       });
-      console.log('Progress data sent successfully',trainingName);
+      console.log('Progress data sent successfully', trainingName);
     } catch (error) {
       console.error('Error sending progress data:', error);
     }
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="divider-with-checkboxes">
@@ -53,15 +89,15 @@ function DividerWithCheckboxes({ modules ,trainingName}) {
               <ListItemText primary={module} />
               <Checkbox
                 checked={completedModules.includes(index)}
-                onChange={() => handleCheckboxToggle(index,trainingName)}
+                onChange={() => handleCheckboxToggle(index)}
               />
             </ListItem>
             {index < modules.length - 1 && <Divider component="li" />}
           </div>
         ))}
       </List>
-      <LinearProgress className='MuiLinearProgress-root' variant="determinate" value={(completedModules.length / modules.length) * 100} />
-      <p className="progress-percentage">Progress: {Math.round((completedModules.length / modules.length) * 100)}%</p>
+      <LinearProgress className='MuiLinearProgress-root' variant="determinate" value={progressPercentage} />
+      <p className="progress-percentage">Progress: {progressPercentage}%</p>
     </div>
   );
 }
